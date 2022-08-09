@@ -58,9 +58,13 @@ abstract class ProductListBase with Store {
 
   @action
   void incrementPage() {
+    if (isFetching) return;
     page = page + 1;
     fetch(true);
   }
+
+  @computed
+  bool get canFetchNextPage => hits.length < 25;
 
   void fetch([bool append = false]) async {
     Action(() {

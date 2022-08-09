@@ -22,7 +22,9 @@ class ProductListRoute extends StatelessWidget {
           body: Center(child: Observer(builder: (_) {
             var store = context.read<ProductList>();
             return ListView.builder(
-                itemCount: (store.hits.length / 2).ceil() + 1,
+                itemCount: store.canFetchNextPage
+                    ? (store.hits.length / 2).ceil() + 1
+                    : (store.hits.length / 2).ceil(),
                 itemBuilder: (context, i) {
                   if (i == (store.hits.length / 2).ceil()) {
                     return const LoadingIndicator();
