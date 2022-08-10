@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/navigation/app.dart';
 import 'package:flutter_app/routes/home.dart';
 import 'package:flutter_app/routes/product_list.dart';
 import 'package:flutter_app/stores/navigation.dart';
-import 'package:flutter_app/stores/product_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
@@ -18,11 +16,14 @@ class Program extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (_) => ProductListCubit(ProductListState.initial())),
-        BlocProvider(
             create: (_) => NavigationCubit(stacks: [
-                  const NavigationStack(widgets: [HomeRoute()]),
-                  const NavigationStack(widgets: [ProductListRoute()])
+                  const NavigationStack(
+                      widgets: [HomeRoute(bottomBarIndex: 0)]),
+                  const NavigationStack(widgets: [
+                    ProductListRoute(
+                      bottomBarIndex: 1,
+                    )
+                  ])
                 ])),
       ],
       child: MaterialApp(

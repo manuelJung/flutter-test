@@ -3,13 +3,15 @@ import 'package:flutter_app/atoms/labeled_box.dart';
 import 'package:flutter_app/containers/app_scaffold.dart';
 
 class HomeRoute extends StatelessWidget {
-  const HomeRoute({Key? key}) : super(key: key);
+  final int bottomBarIndex;
+  const HomeRoute({Key? key, required this.bottomBarIndex}) : super(key: key);
 
   static const routeName = '/';
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+        navigationIndex: bottomBarIndex,
         appBarTitle: 'Home',
         body: ListView(
           children: const [CategoryList(), ImageGrid(), CategoryList()],

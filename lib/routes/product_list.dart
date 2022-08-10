@@ -8,7 +8,9 @@ import '../stores/navigation.dart';
 import '../stores/mobx/product_list.dart';
 
 class ProductListRoute extends StatelessWidget {
-  const ProductListRoute({Key? key}) : super(key: key);
+  final int bottomBarIndex;
+  const ProductListRoute({Key? key, required this.bottomBarIndex})
+      : super(key: key);
 
   static const routeName = '/product-list';
 
@@ -18,6 +20,7 @@ class ProductListRoute extends StatelessWidget {
     return Provider<ProductList>(
       create: (_) => ProductList(const InitialFilters(), []),
       builder: (context, _) => AppScaffold(
+          navigationIndex: bottomBarIndex,
           appBarTitle: 'P-L',
           body: Center(child: Observer(builder: (_) {
             var store = context.read<ProductList>();
@@ -74,7 +77,10 @@ class ProductWidget extends StatelessWidget {
     return Expanded(
         child: InkWell(
       onTap: () {
-        context.read<NavigationCubit>().push(const PDP(productNumber: 'TEST'));
+        context.read<NavigationCubit>().push(const PDP(
+              productNumber: 'TEST',
+              bottomBarIndex: 1,
+            ));
       },
       child: Container(
         margin: const EdgeInsets.all(5),
