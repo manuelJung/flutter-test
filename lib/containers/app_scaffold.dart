@@ -38,21 +38,8 @@ class AppScaffold extends StatelessWidget {
     return Scaffold(
       body: body,
       appBar: AppBar(
-          title: Text(appBarTitle),
-          leading: BlocBuilder<NavigationCubit, NavigationState>(
-              builder: (context, state) {
-            return InkWell(
-              child: state.canPop
-                  ? const Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.white,
-                    )
-                  : null,
-              onTap: () {
-                context.read<NavigationCubit>().pop();
-              },
-            );
-          })),
+        title: Text(appBarTitle),
+      ),
       bottomNavigationBar: NavigationBar(index: navigationIndex),
     );
   }

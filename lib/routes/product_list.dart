@@ -3,8 +3,6 @@ import 'package:flutter_app/containers/app_scaffold.dart';
 import 'package:flutter_app/routes/pdp.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-
-import '../stores/navigation.dart';
 import '../stores/mobx/product_list.dart';
 
 class ProductListRoute extends StatelessWidget {
@@ -77,10 +75,11 @@ class ProductWidget extends StatelessWidget {
     return Expanded(
         child: InkWell(
       onTap: () {
-        context.read<NavigationCubit>().push(const PDP(
-              productNumber: 'TEST',
-              bottomBarIndex: 1,
-            ));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const PDP(productNumber: 'TEST', bottomBarIndex: 1)));
       },
       child: Container(
         margin: const EdgeInsets.all(5),
