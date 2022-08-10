@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class PDPRoute extends StatelessWidget {
-  static String path = 'pdp';
-
   const PDPRoute({super.key});
 
   @override

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../pdp/index.dart';
 
 class ListingRoute extends StatelessWidget {
-  static String path = 'listing';
-
   const ListingRoute({super.key});
 
   @override

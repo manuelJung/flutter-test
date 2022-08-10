@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/listing/index.dart';
 
 class HomeRoute extends StatelessWidget {
-  static String path = 'home';
-
   const HomeRoute({super.key});
 
   @override

@@ -60,9 +60,8 @@ class _AppState extends State<App> {
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
-      HomeRoute.path: (context) => const HomeRoute(),
-      ListingRoute.path: (context) => const ListingRoute(),
-      // PDPRoute.path: (context) => const PDPRoute(),
+      routePaths[TabItem.home]!: (context) => const HomeRoute(),
+      routePaths[TabItem.listing]!: (context) => const ListingRoute(),
     };
   }
 
