@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/navigation/tab_item.dart';
+import 'package:flutter_app/navigation-old/tab_item.dart';
 
 import 'color_detail.dart';
 
