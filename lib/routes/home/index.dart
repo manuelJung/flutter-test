@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/listing/index.dart';
+import 'package:flutter_app/stores/product_list.dart';
 
 class HomeRoute extends StatelessWidget {
   const HomeRoute({super.key});
@@ -16,7 +17,9 @@ class HomeRoute extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ListingRoute()),
+            MaterialPageRoute(
+                builder: (context) =>
+                    const ListingRoute(initialFilters: InitialFilters())),
           );
         },
       )),

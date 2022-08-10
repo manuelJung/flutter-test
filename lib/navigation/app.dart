@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/pdp/index.dart';
+import 'package:flutter_app/stores/product_list.dart';
 import './bottom_navigation.dart';
 import './tab_item.dart';
 import '../routes/home/index.dart';
@@ -61,7 +62,8 @@ class _AppState extends State<App> {
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
       routePaths[TabItem.home]!: (context) => const HomeRoute(),
-      routePaths[TabItem.listing]!: (context) => const ListingRoute(),
+      routePaths[TabItem.listing]!: (context) =>
+          const ListingRoute(initialFilters: InitialFilters()),
     };
   }
 
