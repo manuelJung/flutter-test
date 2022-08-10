@@ -14,19 +14,21 @@ class BottomNavigation extends StatelessWidget {
       items: [
         _buildItem(TabItem.home),
         _buildItem(TabItem.listing),
+        _buildItem(TabItem.settings),
+        _buildItem(TabItem.cart),
       ],
       onTap: (index) => onSelectTab(
         TabItem.values[index],
       ),
       currentIndex: currentTab.index,
-      selectedItemColor: Colors.amber,
+      selectedItemColor: Colors.blue,
     );
   }
 
   BottomNavigationBarItem _buildItem(TabItem tabItem) {
     return BottomNavigationBarItem(
       icon: Icon(
-        Icons.layers,
+        routeIcons[tabItem],
         color: _colorTabMatching(tabItem),
       ),
       label: tabName[tabItem],
@@ -34,6 +36,6 @@ class BottomNavigation extends StatelessWidget {
   }
 
   Color _colorTabMatching(TabItem item) {
-    return currentTab == item ? Colors.amber : Colors.grey;
+    return currentTab == item ? Colors.blue : Colors.grey;
   }
 }

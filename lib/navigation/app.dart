@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/routes/cart/index.dart';
 import 'package:flutter_app/routes/pdp/index.dart';
+import 'package:flutter_app/routes/settings/index.dart';
 import 'package:flutter_app/stores/product_list.dart';
 import './bottom_navigation.dart';
 import './tab_item.dart';
@@ -50,6 +52,8 @@ class _AppState extends State<App> {
         body: Stack(children: [
           _buildOffstageNavigator(TabItem.home),
           _buildOffstageNavigator(TabItem.listing),
+          _buildOffstageNavigator(TabItem.settings),
+          _buildOffstageNavigator(TabItem.cart),
         ]),
         bottomNavigationBar: BottomNavigation(
           currentTab: _currentTab,
@@ -62,6 +66,8 @@ class _AppState extends State<App> {
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
       routePaths[TabItem.home]!: (context) => const HomeRoute(),
+      routePaths[TabItem.settings]!: (context) => const SettingsRoute(),
+      routePaths[TabItem.cart]!: (context) => const CartRoute(),
       routePaths[TabItem.listing]!: (context) =>
           const ListingRoute(initialFilters: InitialFilters()),
     };
