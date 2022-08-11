@@ -10,21 +10,17 @@ class ProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (context) {
-        return Center(child: Observer(builder: (_) {
-          var store = context.read<ProductListStore>();
-          return ListView.builder(
-              itemCount: _calcItemCount(store),
-              itemBuilder: (context, i) {
-                if (i == (store.hits.length / 2).ceil()) {
-                  return const LoadingIndicator();
-                }
-                return _createProductListRow(store, i);
-              });
-        }));
-      },
-    );
+    return Center(child: Observer(builder: (_) {
+      var store = context.read<ProductListStore>();
+      return ListView.builder(
+          itemCount: _calcItemCount(store),
+          itemBuilder: (context, i) {
+            if (i == (store.hits.length / 2).ceil()) {
+              return const LoadingIndicator();
+            }
+            return _createProductListRow(store, i);
+          });
+    }));
   }
 
   int _calcItemCount(ProductListStore store) {
