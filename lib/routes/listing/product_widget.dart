@@ -3,26 +3,34 @@ import 'package:flutter_app/stores/product_list.dart';
 import '../pdp/index.dart';
 
 class ProductWidget extends StatelessWidget {
-  final Hit hit;
-  const ProductWidget({Key? key, required this.hit}) : super(key: key);
+  final ProductListStore store;
+  final int hitIndex;
+  const ProductWidget({Key? key, required this.store, required this.hitIndex})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Expanded(
         child: InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const PDPRoute()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => PDPRoute(
+                      store: store,
+                      index: hitIndex,
+                    )));
       },
       child: Container(
         margin: const EdgeInsets.all(5),
         child: Column(
           children: [
-            const Placeholder(fallbackHeight: 400),
+            Placeholder(fallbackHeight: ((size.width / 2) * 1.5)),
             Container(
               alignment: Alignment.topLeft,
               child: Text(
-                hit.title,
+                store.hits[hitIndex].title,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: const TextStyle(fontSize: 20, height: 1.5),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/stores/product_list.dart';
 
 class PDPRoute extends StatelessWidget {
-  const PDPRoute({super.key});
+  final ProductListStore store;
+  final int index;
+  const PDPRoute({super.key, required this.store, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -9,6 +12,6 @@ class PDPRoute extends StatelessWidget {
         appBar: AppBar(
           title: const Text('PDP'),
         ),
-        body: const Center(child: Text('PDP!')));
+        body: Center(child: Text(store.hits[index].title)));
   }
 }

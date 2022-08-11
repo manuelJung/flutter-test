@@ -2,7 +2,7 @@ import 'package:mobx/mobx.dart';
 
 part 'product_list.g.dart';
 
-class ProductList = ProductListBase with _$ProductList;
+class ProductListStore = ProductListBase with _$ProductListStore;
 
 abstract class ProductListBase with Store {
   @observable

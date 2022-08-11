@@ -9,7 +9,7 @@ class LoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProductList>().incrementPage();
+    context.read<ProductListStore>().incrementPage();
     return const SizedBox(
       height: 500,
       child: Center(
