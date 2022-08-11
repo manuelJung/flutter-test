@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/home/index.dart';
 import 'package:flutter_app/stores/product_list.dart';
 import 'package:flutter_app/stores/ui.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class PDPRoute extends StatelessWidget {
@@ -12,7 +11,7 @@ class PDPRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nav = ModalRoute.of(context);
+    uiStore.showBottomNavigation = false;
     return Scaffold(
         appBar: AppBar(
           title: const Text('PDP'),
