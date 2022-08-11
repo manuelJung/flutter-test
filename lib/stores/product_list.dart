@@ -18,15 +18,15 @@ abstract class ProductListBase with Store {
   @observable
   num page = 0;
 
-  Map<String, DisjunctiveFilter> disjunctiveFilters = {};
+  Map<String, DisjunctiveFilterStore> disjunctiveFilters = {};
   List<FilterDefinition> filterDefinitions = [];
 
   ProductListBase(InitialFilters initFilters, List<FilterDefinition> defs) {
     filterDefinitions = defs;
     for (var def in defs) {
       if (def.type == FilterType.disjunctive) {
-        disjunctiveFilters[def.key] =
-            DisjunctiveFilter(key: def.key, label: def.label, parent: this);
+        disjunctiveFilters[def.key] = DisjunctiveFilterStore(
+            key: def.key, label: def.label, parent: this);
       }
     }
 
@@ -116,7 +116,7 @@ class Hit {
   const Hit({required this.title});
 }
 
-class DisjunctiveFilter = DisjunctiveFilterBase with _$DisjunctiveFilter;
+class DisjunctiveFilterStore = DisjunctiveFilterBase with _$DisjunctiveFilter;
 
 abstract class DisjunctiveFilterBase with Store {
   final String key;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/routes/filter_list/index.dart';
+import 'package:flutter_app/routes/listing/filter_list/index.dart';
 import 'package:flutter_app/stores/product_list.dart';
 import 'package:provider/provider.dart';
 import './product_list.dart';
@@ -11,21 +11,32 @@ class ListingRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<ProductListStore>(
-      create: (_) => ProductListStore(initialFilters, []),
+      create: (context) => ProductListStore(initialFilters, [
+        const FilterDefinition(
+            label: 'Farbe', key: 'color', type: FilterType.disjunctive),
+        const FilterDefinition(
+            label: 'Größe', key: 'size', type: FilterType.disjunctive),
+        const FilterDefinition(
+            label: 'Variante', key: 'variant', type: FilterType.disjunctive),
+      ]),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Listing'),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const FilterListRoute()));
-          },
-          backgroundColor: Colors.blue,
-          child: const Icon(Icons.filter_alt_sharp),
-        ),
+        floatingActionButton: Builder(builder: (context) {
+          return FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => FilterListRoute(
+                            store: Provider.of<ProductListStore>(context),
+                          )));
+            },
+            backgroundColor: Colors.blue,
+            child: const Icon(Icons.filter_alt_sharp),
+          );
+        }),
         body: const ProductList(),
       ),
     );
