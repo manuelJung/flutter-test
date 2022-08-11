@@ -27,9 +27,7 @@ class ProductWidget extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: [
-            Hero(
-                tag: 'pdp$hitIndex',
-                child: Placeholder(fallbackHeight: ((size.width / 2) * 1.5))),
+            Placeholder(fallbackHeight: ((size.width / 2) * 1.5)),
             Container(
               alignment: Alignment.topLeft,
               child: Text(
