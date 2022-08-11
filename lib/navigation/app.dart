@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/cart/index.dart';
-import 'package:flutter_app/routes/pdp/index.dart';
 import 'package:flutter_app/routes/settings/index.dart';
 import 'package:flutter_app/stores/product_list.dart';
+import 'package:flutter_app/stores/ui.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import './bottom_navigation.dart';
 import './tab_item.dart';
 import '../routes/home/index.dart';
@@ -55,10 +56,20 @@ class _AppState extends State<App> {
           _buildOffstageNavigator(TabItem.settings),
           _buildOffstageNavigator(TabItem.cart),
         ]),
-        bottomNavigationBar: BottomNavigation(
-          currentTab: _currentTab,
-          onSelectTab: _selectTab,
-        ),
+        bottomNavigationBar: Observer(builder: (context) {
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: uiStore.showBottomNavigation ? 55 : 0,
+            child: Wrap(
+              children: [
+                BottomNavigation(
+                  currentTab: _currentTab,
+                  onSelectTab: _selectTab,
+                )
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
@@ -80,6 +91,7 @@ class _AppState extends State<App> {
         child: Navigator(
           key: _navigatorKeys[tabItem],
           initialRoute: routePaths[tabItem],
+          observers: [MaterialApp.createMaterialHeroController()],
           onGenerateRoute: (settings) {
             return MaterialPageRoute(
                 builder: (context) => routeBuilders[settings.name]!(context));

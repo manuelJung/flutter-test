@@ -172,7 +172,7 @@ canFetchNextPage: ${canFetchNextPage}
   }
 }
 
-mixin _$DisjunctiveFilter on DisjunctiveFilterBase, Store {
+mixin _$DisjunctiveFilterStore on DisjunctiveFilterBase, Store {
   late final _$optionsAtom =
       Atom(name: 'DisjunctiveFilterBase.options', context: context);
 

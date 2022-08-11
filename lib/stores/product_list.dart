@@ -116,7 +116,8 @@ class Hit {
   const Hit({required this.title});
 }
 
-class DisjunctiveFilterStore = DisjunctiveFilterBase with _$DisjunctiveFilter;
+class DisjunctiveFilterStore = DisjunctiveFilterBase
+    with _$DisjunctiveFilterStore;
 
 abstract class DisjunctiveFilterBase with Store {
   final String key;

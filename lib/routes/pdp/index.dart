@@ -12,6 +12,6 @@ class PDPRoute extends StatelessWidget {
         appBar: AppBar(
           title: const Text('PDP'),
         ),
-        body: Center(child: Text(store.hits[index].title)));
+        body: Hero(tag: 'pdp$index', child: const Placeholder()));
   }
 }

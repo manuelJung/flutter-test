@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/stores/product_list.dart';
+import 'package:flutter_app/stores/ui.dart';
 import '../pdp/index.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -26,7 +27,9 @@ class ProductWidget extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: [
-            Placeholder(fallbackHeight: ((size.width / 2) * 1.5)),
+            Hero(
+                tag: 'pdp$hitIndex',
+                child: Placeholder(fallbackHeight: ((size.width / 2) * 1.5))),
             Container(
               alignment: Alignment.topLeft,
               child: Text(
