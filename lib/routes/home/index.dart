@@ -18,8 +18,8 @@ class HomeRoute extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    const ListingRoute(initialFilters: InitialFilters())),
+                builder: (context) => const ListingRoute(
+                    initialFilters: InitialFilters(category: 'Taschen'))),
           );
         },
       )),
