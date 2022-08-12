@@ -3,6 +3,7 @@ import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/routes/pdp/sheet_box.dart';
 import 'package:flutter_app/routes/pdp/sheet_title.dart';
 import 'package:flutter_app/stores/animated_value/animated_value.dart';
+import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:flutter_app/stores/ui/ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -10,19 +11,13 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import 'animated_app_bar.dart';
 import 'bottom_sheet.dart';
+import 'back_button.dart';
 
-class PDPRoute extends StatefulWidget {
+class PDPRoute extends StatelessWidget {
   final ProductListStore store;
   final int index;
 
   const PDPRoute({super.key, required this.store, required this.index});
-
-  @override
-  State<PDPRoute> createState() => _PDPRouteState();
-}
-
-class _PDPRouteState extends State<PDPRoute> {
-  final scrollPos = AnimatedValue();
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +31,14 @@ class _PDPRouteState extends State<PDPRoute> {
         //     leading: const BackButton(color: Colors.black)),
         body: Observer(builder: (context) {
           return PageView.builder(
-              itemCount: widget.store.hits.length,
+              itemCount: store.hits.length,
               pageSnapping: true,
-              physics: scrollPos.value > 0.5
-                  ? const NeverScrollableScrollPhysics()
-                  : const ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
+              // physics: scrollPos.value > 0.5
+              //     ? const NeverScrollableScrollPhysics()
+              //     : const ClampingScrollPhysics(),
               controller: PageController(
-                  initialPage: widget.index,
-                  keepPage: true,
-                  viewportFraction: 1),
+                  initialPage: index, keepPage: true, viewportFraction: 1),
               itemBuilder: (context, pagePosition) {
                 var size = MediaQuery.of(context).size;
                 double bottomSheetHeight = size.height - size.width;
@@ -55,76 +49,74 @@ class _PDPRouteState extends State<PDPRoute> {
                 double headerHeight = AnimatedAppBar.headerHeight;
                 double headerPercent = headerHeight / size.height;
 
-                return Stack(children: [
-                  SizedBox(
-                    height: size.height - bottomSheetHeight,
-                    child: VisibilityDetector(
-                        key: Key('pdp-visiblity-detector${widget.index}'),
-                        onVisibilityChanged: (info) => uiStore
-                            .showBottomNavigation = info.visibleBounds.isEmpty,
-                        child: Gallery(
-                          fallbackImage: widget.store.hits[pagePosition].imgUrl,
-                        )),
-                  ),
-                  BackButton(scrollPos: scrollPos),
-                  AnimatedAppBar(scrollPos: scrollPos),
-                  CustomBottomSheet(
-                    scrollPos: scrollPos,
+                return PDPPage(
+                    size: size,
+                    bottomSheetHeight: bottomSheetHeight,
+                    hit: store.hits[index],
                     draggablePercent: draggablePercent,
                     headerPercent: headerPercent,
-                    maxDragablePercent: maxDragablePercent,
-                    children: [
-                      SheetTitle(scrollPos: scrollPos),
-                      const SheetBox(),
-                      const SheetBox(),
-                      const SheetBox(),
-                      const SheetBox(),
-                      const SheetBox(),
-                      const SheetBox(),
-                    ],
-                  )
-                ]);
+                    maxDragablePercent: maxDragablePercent);
               });
         }));
   }
 }
 
-class BackButton extends StatelessWidget {
-  const BackButton({
+class PDPPage extends StatefulWidget {
+  const PDPPage({
     Key? key,
-    required this.scrollPos,
+    required this.size,
+    required this.bottomSheetHeight,
+    required this.draggablePercent,
+    required this.headerPercent,
+    required this.maxDragablePercent,
+    required this.hit,
   }) : super(key: key);
 
-  final AnimatedValue scrollPos;
+  final Size size;
+  final double bottomSheetHeight;
+  final double draggablePercent;
+  final double headerPercent;
+  final Hit hit;
+  final double maxDragablePercent;
+
+  @override
+  State<PDPPage> createState() => _PDPPageState();
+}
+
+class _PDPPageState extends State<PDPPage> {
+  final scrollPos = AnimatedValue();
+  final pdpStore = PDPStore(productNumber: '123456', sku: '12345678');
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (context) {
-      double size = scrollPos.interpolate(
-        xs: [0, 0.4, 0.8, 1],
-        ys: [1, 1, 0, 0],
-      );
-      return Opacity(
-        opacity: size,
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(100)),
-          width: 50,
-          height: 50,
-          padding: EdgeInsets.zero,
-          margin: const EdgeInsets.only(top: 20, left: 10),
-          child: Center(
-              child: IconButton(
-            padding: EdgeInsets.zero,
-            icon: Icon(
-              Icons.arrow_back_ios_new,
-              size: size * 20,
-            ),
-            onPressed: () => Navigator.pop(context),
-          )),
-        ),
-      );
-    });
+    return Stack(children: [
+      SizedBox(
+        height: widget.size.height - widget.bottomSheetHeight,
+        child: VisibilityDetector(
+            key: Key('pdp-visiblity-detector${widget.hit.sku}'),
+            onVisibilityChanged: (info) =>
+                uiStore.showBottomNavigation = info.visibleBounds.isEmpty,
+            child: Gallery(
+              fallbackImage: widget.hit.imgUrl,
+            )),
+      ),
+      CustomBackButton(scrollPos: scrollPos),
+      AnimatedAppBar(scrollPos: scrollPos),
+      CustomBottomSheet(
+        scrollPos: scrollPos,
+        draggablePercent: widget.draggablePercent,
+        headerPercent: widget.headerPercent,
+        maxDragablePercent: widget.maxDragablePercent,
+        children: [
+          SheetTitle(scrollPos: scrollPos),
+          const SheetBox(),
+          const SheetBox(),
+          const SheetBox(),
+          const SheetBox(),
+          const SheetBox(),
+          const SheetBox(),
+        ],
+      )
+    ]);
   }
 }

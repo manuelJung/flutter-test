@@ -88,6 +88,8 @@ abstract class _ProductList with Store {
           for (var hit in snap.hits.map((hit) => hit.toMap()))
             Hit(
                 title: hit['title'],
+                sku: hit['sku'],
+                productNumber: hit['containerID'],
                 imgUrl: '$imgHost/${hit['images']['imageWeb'][0]['url']}')
         ]);
 
@@ -116,8 +118,15 @@ abstract class _ProductList with Store {
   AlgoliaQuery _createQuery() {
     AlgoliaQuery query = algolia.instance.index('prod_lusini_de_DE_products');
 
-    query = query.setAttributesToRetrieve(
-        ['sku', 'containerID', 'images', 'title', 'flags', 'attributes']);
+    query = query.setAttributesToRetrieve([
+      'sku',
+      'containerID',
+      'images',
+      'title',
+      'flags',
+      'attributes',
+      'containerID'
+    ]);
 
     query = query.setPage(page);
     query = query.setFacets([...filterDefinitions.map((def) => def.key)]);
@@ -151,7 +160,13 @@ class FilterDefinition {
 class Hit {
   final String title;
   final String imgUrl;
-  const Hit({required this.title, required this.imgUrl});
+  final String sku;
+  final String productNumber;
+  const Hit(
+      {required this.title,
+      required this.imgUrl,
+      required this.sku,
+      required this.productNumber});
 }
 
 class DisjunctiveFilterStore = _DisjunctiveFilter with _$DisjunctiveFilterStore;
