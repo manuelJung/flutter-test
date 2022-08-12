@@ -52,7 +52,7 @@ class PDPRoute extends StatelessWidget {
                 return PDPPage(
                     size: size,
                     bottomSheetHeight: bottomSheetHeight,
-                    hit: store.hits[index],
+                    hit: store.hits[pagePosition],
                     draggablePercent: draggablePercent,
                     headerPercent: headerPercent,
                     maxDragablePercent: maxDragablePercent);
