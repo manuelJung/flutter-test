@@ -5,17 +5,17 @@ import 'package:flutter_app/routes/pdp/sheet_title.dart';
 import 'package:flutter_app/stores/animated_value.dart';
 import 'package:flutter_app/stores/product_list.dart';
 import 'package:flutter_app/stores/ui.dart';
-import 'package:flutter_app/utils/math.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import 'animated_app_bar.dart';
+import 'bottom_sheet.dart';
 
 class PDPRoute extends StatefulWidget {
   final ProductListStore store;
   final int index;
 
-  PDPRoute({super.key, required this.store, required this.index});
+  const PDPRoute({super.key, required this.store, required this.index});
 
   @override
   State<PDPRoute> createState() => _PDPRouteState();
@@ -64,51 +64,20 @@ class _PDPRouteState extends State<PDPRoute> {
                         )),
                   ),
                   AnimatedAppBar(scrollPos: scrollPos),
-                  NotificationListener<DraggableScrollableNotification>(
-                    onNotification: (notification) {
-                      // https://sciencing.com/interpolate-numbers-8680223.html
-                      scrollPos.setValue(Math.interpolate(
-                          x: notification.extent,
-                          xs: [draggablePercent, 1 - headerPercent],
-                          ys: [0, 1]));
-
-                      return true;
-                    },
-                    child: DraggableScrollableSheet(
-                        initialChildSize: draggablePercent,
-                        maxChildSize: maxDragablePercent - headerPercent,
-                        minChildSize: draggablePercent,
-                        builder: (BuildContext context,
-                            ScrollController scrollController) {
-                          return Container(
-                            color: Colors.grey[200],
-                            child: Column(
-                              children: [
-                                // const SheetTitle(),
-                                Expanded(
-                                  // TODO: no longer needed (only with app-bar)
-                                  child: MediaQuery.removePadding(
-                                    context: context,
-                                    removeTop: true,
-                                    child: ListView(
-                                      controller: scrollController,
-                                      physics: const ClampingScrollPhysics(),
-                                      children: [
-                                        SheetTitle(counter: scrollPos),
-                                        const SheetBox(),
-                                        const SheetBox(),
-                                        const SheetBox(),
-                                        const SheetBox(),
-                                        const SheetBox(),
-                                        const SheetBox(),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }),
+                  CustomBottomSheet(
+                    scrollPos: scrollPos,
+                    draggablePercent: draggablePercent,
+                    headerPercent: headerPercent,
+                    maxDragablePercent: maxDragablePercent,
+                    children: [
+                      SheetTitle(counter: scrollPos),
+                      const SheetBox(),
+                      const SheetBox(),
+                      const SheetBox(),
+                      const SheetBox(),
+                      const SheetBox(),
+                      const SheetBox(),
+                    ],
                   )
                 ]);
               });
