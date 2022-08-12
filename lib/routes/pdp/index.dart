@@ -9,6 +9,8 @@ import 'package:flutter_app/utils/math.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import 'animated_app_bar.dart';
+
 class PDPRoute extends StatefulWidget {
   final ProductListStore store;
   final int index;
@@ -48,7 +50,7 @@ class _PDPRouteState extends State<PDPRoute> {
                 double draggablePercent =
                     (bottomSheetHeight / size.height) + radiusOffset;
                 double maxDragablePercent = 1;
-                double headerHeight = 80;
+                double headerHeight = AnimatedAppBar.headerHeight;
                 double headerPercent = headerHeight / size.height;
                 return Stack(children: [
                   SizedBox(
@@ -61,16 +63,7 @@ class _PDPRouteState extends State<PDPRoute> {
                           fallbackImage: widget.store.hits[pagePosition].imgUrl,
                         )),
                   ),
-                  Observer(builder: (context) {
-                    double animated =
-                        scrollPos.interpolate(xs: [0, 0.8, 1], ys: [0, 0, 1]);
-                    return Positioned(
-                        left: 0,
-                        right: 0,
-                        top: -headerHeight + headerHeight * animated,
-                        height: headerHeight,
-                        child: Container(color: Colors.amber));
-                  }),
+                  AnimatedAppBar(scrollPos: scrollPos),
                   NotificationListener<DraggableScrollableNotification>(
                     onNotification: (notification) {
                       // https://sciencing.com/interpolate-numbers-8680223.html
