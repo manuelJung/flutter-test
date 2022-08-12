@@ -15,9 +15,9 @@ class PDPRoute extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-        ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: const BackButton(color: Colors.black)),
         body: PageView.builder(
             itemCount: 3,
             pageSnapping: true,
@@ -35,7 +35,9 @@ class PDPRoute extends StatelessWidget {
                       key: Key('pdp-visiblity-detector$index'),
                       onVisibilityChanged: (info) => uiStore
                           .showBottomNavigation = info.visibleBounds.isEmpty,
-                      child: const Gallery()),
+                      child: Gallery(
+                        fallbackImage: store.hits[index].imgUrl,
+                      )),
                 ),
                 DraggableScrollableSheet(
                     initialChildSize: draggablePercent,
@@ -50,7 +52,7 @@ class PDPRoute extends StatelessWidget {
                               borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(10),
                                   topLeft: Radius.circular(10)),
-                              color: Colors.white),
+                              color: Colors.grey[200]),
                           child: ListView.builder(
                               controller: scrollController,
                               itemCount: 25,
