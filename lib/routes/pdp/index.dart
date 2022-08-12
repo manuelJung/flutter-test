@@ -38,7 +38,9 @@ class _PDPRouteState extends State<PDPRoute> {
           return PageView.builder(
               itemCount: widget.store.hits.length,
               pageSnapping: true,
-              physics: const ClampingScrollPhysics(),
+              physics: scrollPos.value > 0.5
+                  ? const NeverScrollableScrollPhysics()
+                  : const ClampingScrollPhysics(),
               controller: PageController(
                   initialPage: widget.index,
                   keepPage: true,

@@ -15,13 +15,18 @@ class AnimatedAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      double animated = scrollPos.interpolate(xs: [0, 0.8, 1], ys: [0, 0, 1]);
+      double animated = scrollPos.interpolate(xs: [0, 0.6, 1], ys: [0, 0, 1]);
+      double opacity = scrollPos.interpolate(xs: [0, 0.9, 1], ys: [0, 0, 1]);
       return Positioned(
           left: 0,
           right: 0,
           top: -headerHeight + headerHeight * animated,
           height: headerHeight,
-          child: Container(color: Colors.amber));
+          child: Container(
+            color: Colors.blue,
+            child: Opacity(
+                opacity: opacity, child: AppBar(title: const Text('PDP'))),
+          ));
     });
   }
 }
