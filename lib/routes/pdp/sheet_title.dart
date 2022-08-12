@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/stores/animated_value.dart';
+import 'package:flutter_app/utils/math.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class SheetTitle extends StatelessWidget {
-  const SheetTitle({super.key});
+  final AnimatedValue counter;
+  const SheetTitle({super.key, required this.counter});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +20,18 @@ class SheetTitle extends StatelessWidget {
         children: <Widget>[
           Align(
             alignment: Alignment.topCenter,
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              height: 8.0,
-              width: 70.0,
-              decoration: BoxDecoration(
-                  color: Colors.grey[400],
-                  borderRadius: BorderRadius.circular(10.0)),
-            ),
+            child: Observer(builder: (context) {
+              double animated =
+                  counter.interpolate(xs: [0, 0.6, 1], ys: [0, 0, 1]);
+              return Container(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                height: 4.0,
+                width: 80 - animated * 80,
+                decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(10.0)),
+              );
+            }),
           ),
           const SizedBox(height: 16),
           const Padding(

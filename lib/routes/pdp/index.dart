@@ -2,15 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/routes/pdp/sheet_box.dart';
 import 'package:flutter_app/routes/pdp/sheet_title.dart';
+import 'package:flutter_app/stores/animated_value.dart';
 import 'package:flutter_app/stores/product_list.dart';
 import 'package:flutter_app/stores/ui.dart';
+import 'package:flutter_app/utils/math.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class PDPRoute extends StatelessWidget {
+class PDPRoute extends StatefulWidget {
   final ProductListStore store;
   final int index;
-  const PDPRoute({super.key, required this.store, required this.index});
+
+  PDPRoute({super.key, required this.store, required this.index});
+
+  @override
+  State<PDPRoute> createState() => _PDPRouteState();
+}
+
+class _PDPRouteState extends State<PDPRoute> {
+  final scrollPos = AnimatedValue();
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +28,19 @@ class PDPRoute extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            leading: const BackButton(color: Colors.black)),
+        // appBar: AppBar(
+        //     elevation: 0,
+        //     backgroundColor: Colors.transparent,
+        //     leading: const BackButton(color: Colors.black)),
         body: Observer(builder: (context) {
           return PageView.builder(
-              itemCount: store.hits.length,
+              itemCount: widget.store.hits.length,
               pageSnapping: true,
               physics: const ClampingScrollPhysics(),
               controller: PageController(
-                  initialPage: index, keepPage: true, viewportFraction: 1),
+                  initialPage: widget.index,
+                  keepPage: true,
+                  viewportFraction: 1),
               itemBuilder: (context, pagePosition) {
                 var size = MediaQuery.of(context).size;
                 double bottomSheetHeight = size.height - size.width;
@@ -36,47 +48,75 @@ class PDPRoute extends StatelessWidget {
                 double draggablePercent =
                     (bottomSheetHeight / size.height) + radiusOffset;
                 double maxDragablePercent = 1;
+                double headerHeight = 80;
+                double headerPercent = headerHeight / size.height;
                 return Stack(children: [
                   SizedBox(
                     height: size.height - bottomSheetHeight,
                     child: VisibilityDetector(
-                        key: Key('pdp-visiblity-detector$index'),
+                        key: Key('pdp-visiblity-detector${widget.index}'),
                         onVisibilityChanged: (info) => uiStore
                             .showBottomNavigation = info.visibleBounds.isEmpty,
                         child: Gallery(
-                          fallbackImage: store.hits[pagePosition].imgUrl,
+                          fallbackImage: widget.store.hits[pagePosition].imgUrl,
                         )),
                   ),
-                  DraggableScrollableSheet(
-                      initialChildSize: draggablePercent,
-                      maxChildSize: maxDragablePercent,
-                      minChildSize: draggablePercent,
-                      builder: (BuildContext context,
-                          ScrollController scrollController) {
-                        return Container(
-                          color: Colors.grey[200],
-                          child: Column(
-                            children: [
-                              // const SheetTitle(),
-                              Expanded(
-                                child: MediaQuery.removePadding(
-                                  context: context,
-                                  removeTop: true,
-                                  child: ListView(
-                                    controller: scrollController,
-                                    physics: const ClampingScrollPhysics(),
-                                    children: const [
-                                      SheetTitle(),
-                                      SheetBox(),
-                                      SheetBox(),
-                                    ],
+                  Observer(builder: (context) {
+                    double animated =
+                        scrollPos.interpolate(xs: [0, 0.8, 1], ys: [0, 0, 1]);
+                    return Positioned(
+                        left: 0,
+                        right: 0,
+                        top: -headerHeight + headerHeight * animated,
+                        height: headerHeight,
+                        child: Container(color: Colors.amber));
+                  }),
+                  NotificationListener<DraggableScrollableNotification>(
+                    onNotification: (notification) {
+                      // https://sciencing.com/interpolate-numbers-8680223.html
+                      scrollPos.setValue(Math.interpolate(
+                          x: notification.extent,
+                          xs: [draggablePercent, 1 - headerPercent],
+                          ys: [0, 1]));
+
+                      return true;
+                    },
+                    child: DraggableScrollableSheet(
+                        initialChildSize: draggablePercent,
+                        maxChildSize: maxDragablePercent - headerPercent,
+                        minChildSize: draggablePercent,
+                        builder: (BuildContext context,
+                            ScrollController scrollController) {
+                          return Container(
+                            color: Colors.grey[200],
+                            child: Column(
+                              children: [
+                                // const SheetTitle(),
+                                Expanded(
+                                  // TODO: no longer needed (only with app-bar)
+                                  child: MediaQuery.removePadding(
+                                    context: context,
+                                    removeTop: true,
+                                    child: ListView(
+                                      controller: scrollController,
+                                      physics: const ClampingScrollPhysics(),
+                                      children: [
+                                        SheetTitle(counter: scrollPos),
+                                        const SheetBox(),
+                                        const SheetBox(),
+                                        const SheetBox(),
+                                        const SheetBox(),
+                                        const SheetBox(),
+                                        const SheetBox(),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      })
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                  )
                 ]);
               });
         }));
