@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:algolia/algolia.dart';
+import 'package:flutter_app/utils/algolia.dart';
 import 'package:mobx/mobx.dart';
 
 part 'product_list.g.dart';
@@ -16,7 +20,7 @@ abstract class ProductListBase with Store {
   @observable
   String fetchError = '';
   @observable
-  num page = 0;
+  int page = 0;
 
   Map<String, DisjunctiveFilterStore> disjunctiveFilters = {};
   List<FilterDefinition> filterDefinitions = [];
@@ -59,39 +63,72 @@ abstract class ProductListBase with Store {
   void incrementPage() {
     if (isFetching) return;
     page = page + 1;
-    fetch(true);
+    fetch();
   }
 
   @computed
   bool get canFetchNextPage => hits.length < 25;
 
-  void fetch([bool append = false]) async {
+  void fetch() async {
     Action(() {
       isFetching = true;
       fetchError = '';
     })();
 
     try {
-      await Future.delayed(const Duration(milliseconds: 800));
+      AlgoliaQuery query = _createQuery();
+      AlgoliaQuerySnapshot snap = await query.getObjects();
+      String imgHost =
+          'https://res.cloudinary.com/lusini/w_500,h_500,q_70,c_pad,f_auto';
+
       Action(() {
         isFetching = false;
-        if (!append) hits.clear();
-        hits.addAll(List.generate(
-            10, (index) => Hit(title: 'Article ${index + hits.length}')));
+        if (page == 0) hits.clear();
+        hits.addAll([
+          for (var hit in snap.hits.map((hit) => hit.toMap()))
+            Hit(
+                title: hit['title'],
+                imgUrl: '$imgHost/${hit['images']['imageWeb'][0]['url']}')
+        ]);
 
+        // print(snap.facets.keys.toList());
         for (var def in filterDefinitions) {
           if (def.type == FilterType.disjunctive) {
             var filter = disjunctiveFilters[def.key]!;
-            filter.options = ObservableList.of(['a', 'b', 'c']);
+            if (snap.facets.containsKey(def.type)) {
+              filter.options.clear();
+            } else {
+              List<String> options = snap.facets[def.key].keys.toList();
+              filter.options = ObservableList.of(options);
+            }
           }
         }
       })();
     } catch (e) {
+      print(e);
       Action(() {
         isFetching = false;
         fetchError = e.toString();
       })();
     }
+  }
+
+  AlgoliaQuery _createQuery() {
+    AlgoliaQuery query = algolia.instance.index('prod_lusini_de_DE_products');
+
+    query = query.setAttributesToRetrieve(
+        ['sku', 'containerID', 'images', 'title', 'flags', 'attributes']);
+
+    query = query.setPage(page);
+    query = query.setFacets([...filterDefinitions.map((def) => def.key)]);
+
+    for (var def in filterDefinitions) {
+      for (String opt in (disjunctiveFilters[def.key]?.values ?? [])) {
+        query = query.facetFilter('${def.key}:$opt');
+      }
+    }
+
+    return query;
   }
 }
 
@@ -113,7 +150,8 @@ class FilterDefinition {
 
 class Hit {
   final String title;
-  const Hit({required this.title});
+  final String imgUrl;
+  const Hit({required this.title, required this.imgUrl});
 }
 
 class DisjunctiveFilterStore = DisjunctiveFilterBase
@@ -140,6 +178,7 @@ abstract class DisjunctiveFilterBase with Store {
     } else {
       values.add(value);
     }
+    parent.page = 0;
     parent.fetch();
   }
 }

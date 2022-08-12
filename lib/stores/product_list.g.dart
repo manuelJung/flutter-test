@@ -99,13 +99,13 @@ mixin _$ProductListStore on ProductListBase, Store {
   late final _$pageAtom = Atom(name: 'ProductListBase.page', context: context);
 
   @override
-  num get page {
+  int get page {
     _$pageAtom.reportRead();
     return super.page;
   }
 
   @override
-  set page(num value) {
+  set page(int value) {
     _$pageAtom.reportWrite(value, super.page, () {
       super.page = value;
     });

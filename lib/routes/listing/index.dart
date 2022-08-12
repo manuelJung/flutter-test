@@ -13,13 +13,20 @@ class ListingRoute extends StatelessWidget {
     return Provider<ProductListStore>(
       create: (context) => ProductListStore(initialFilters, [
         const FilterDefinition(
-            label: 'Farbe', key: 'color', type: FilterType.disjunctive),
+            label: 'Marke',
+            key: 'attributes.BRAND.values.value',
+            type: FilterType.disjunctive),
         const FilterDefinition(
-            label: 'Größe', key: 'size', type: FilterType.disjunctive),
+            label: 'Farbe',
+            key: 'attributes.COLOR.values.value',
+            type: FilterType.disjunctive),
         const FilterDefinition(
-            label: 'Variante', key: 'variant', type: FilterType.disjunctive),
+            label: 'Form',
+            key: 'attributes.SHAPE.values.value',
+            type: FilterType.disjunctive),
       ]),
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text('Listing'),
         ),

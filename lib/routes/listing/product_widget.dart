@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/stores/product_list.dart';
-import 'package:flutter_app/stores/ui.dart';
 import '../pdp/index.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -12,6 +11,7 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var hit = store.hits[hitIndex];
     return Expanded(
         child: InkWell(
       onTap: () {
@@ -27,14 +27,15 @@ class ProductWidget extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: [
-            Placeholder(fallbackHeight: ((size.width / 2) * 1.5)),
+            Image.network(hit.imgUrl,
+                height: ((size.width / 2)), width: size.width / 2),
             Container(
               alignment: Alignment.topLeft,
               child: Text(
-                store.hits[hitIndex].title,
+                hit.title,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: const TextStyle(fontSize: 20, height: 1.5),
+                style: const TextStyle(fontSize: 16, height: 1.5),
               ),
             )
           ],
