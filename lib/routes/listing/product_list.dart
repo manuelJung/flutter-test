@@ -2,7 +2,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import './product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_app/stores/product_list.dart';
+import 'package:flutter_app/stores/product_list/product_list.dart';
 import './loading_indicator.dart';
 
 class ProductList extends StatelessWidget {

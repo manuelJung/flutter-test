@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/listing/filter_list/disjunctive_filter.dart';
-import 'package:flutter_app/stores/product_list.dart';
+import 'package:flutter_app/stores/product_list/product_list.dart';
 
 class FilterListRoute extends StatelessWidget {
   final ProductListStore store;

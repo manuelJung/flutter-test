@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/listing/index.dart';
-import 'package:flutter_app/stores/product_list.dart';
+import 'package:flutter_app/stores/product_list/product_list.dart';
 
 class HomeRoute extends StatelessWidget {
   const HomeRoute({super.key});

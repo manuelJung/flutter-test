@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/routes/pdp/sheet_box.dart';
 import 'package:flutter_app/routes/pdp/sheet_title.dart';
-import 'package:flutter_app/stores/animated_value.dart';
-import 'package:flutter_app/stores/product_list.dart';
-import 'package:flutter_app/stores/ui.dart';
+import 'package:flutter_app/stores/animated_value/animated_value.dart';
+import 'package:flutter_app/stores/product_list/product_list.dart';
+import 'package:flutter_app/stores/ui/ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 

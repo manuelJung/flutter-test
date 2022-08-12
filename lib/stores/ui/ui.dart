@@ -1,10 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:mobx/mobx.dart';
 
 part 'ui.g.dart';
 
-class UiStore = UiBase with _$UiStore;
+class UiStore = _Ui with _$UiStore;
 
-abstract class UiBase with Store {
+abstract class _Ui with Store {
   @observable
   bool showBottomNavigation = true;
 }

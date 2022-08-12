@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/stores/animated_value.dart';
+import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_app/utils/math.dart';
 
 class CustomBottomSheet extends StatelessWidget {

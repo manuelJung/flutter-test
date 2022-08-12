@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/stores/product_list.dart';
+import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:provider/provider.dart';
 
 class LoadingIndicator extends StatelessWidget {

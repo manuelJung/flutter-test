@@ -8,16 +8,16 @@ part of 'product_list.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$ProductListStore on ProductListBase, Store {
+mixin _$ProductListStore on _ProductList, Store {
   Computed<bool>? _$canFetchNextPageComputed;
 
   @override
   bool get canFetchNextPage => (_$canFetchNextPageComputed ??= Computed<bool>(
           () => super.canFetchNextPage,
-          name: 'ProductListBase.canFetchNextPage'))
+          name: '_ProductList.canFetchNextPage'))
       .value;
 
-  late final _$hitsAtom = Atom(name: 'ProductListBase.hits', context: context);
+  late final _$hitsAtom = Atom(name: '_ProductList.hits', context: context);
 
   @override
   ObservableList<Hit> get hits {
@@ -32,8 +32,7 @@ mixin _$ProductListStore on ProductListBase, Store {
     });
   }
 
-  late final _$queryAtom =
-      Atom(name: 'ProductListBase.query', context: context);
+  late final _$queryAtom = Atom(name: '_ProductList.query', context: context);
 
   @override
   String get query {
@@ -49,7 +48,7 @@ mixin _$ProductListStore on ProductListBase, Store {
   }
 
   late final _$categoryAtom =
-      Atom(name: 'ProductListBase.category', context: context);
+      Atom(name: '_ProductList.category', context: context);
 
   @override
   String get category {
@@ -65,7 +64,7 @@ mixin _$ProductListStore on ProductListBase, Store {
   }
 
   late final _$isFetchingAtom =
-      Atom(name: 'ProductListBase.isFetching', context: context);
+      Atom(name: '_ProductList.isFetching', context: context);
 
   @override
   bool get isFetching {
@@ -81,7 +80,7 @@ mixin _$ProductListStore on ProductListBase, Store {
   }
 
   late final _$fetchErrorAtom =
-      Atom(name: 'ProductListBase.fetchError', context: context);
+      Atom(name: '_ProductList.fetchError', context: context);
 
   @override
   String get fetchError {
@@ -96,7 +95,7 @@ mixin _$ProductListStore on ProductListBase, Store {
     });
   }
 
-  late final _$pageAtom = Atom(name: 'ProductListBase.page', context: context);
+  late final _$pageAtom = Atom(name: '_ProductList.page', context: context);
 
   @override
   int get page {
@@ -111,50 +110,50 @@ mixin _$ProductListStore on ProductListBase, Store {
     });
   }
 
-  late final _$ProductListBaseActionController =
-      ActionController(name: 'ProductListBase', context: context);
+  late final _$_ProductListActionController =
+      ActionController(name: '_ProductList', context: context);
 
   @override
   void init(InitialFilters initFilters) {
-    final _$actionInfo = _$ProductListBaseActionController.startAction(
-        name: 'ProductListBase.init');
+    final _$actionInfo =
+        _$_ProductListActionController.startAction(name: '_ProductList.init');
     try {
       return super.init(initFilters);
     } finally {
-      _$ProductListBaseActionController.endAction(_$actionInfo);
+      _$_ProductListActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setCategory(String category) {
-    final _$actionInfo = _$ProductListBaseActionController.startAction(
-        name: 'ProductListBase.setCategory');
+    final _$actionInfo = _$_ProductListActionController.startAction(
+        name: '_ProductList.setCategory');
     try {
       return super.setCategory(category);
     } finally {
-      _$ProductListBaseActionController.endAction(_$actionInfo);
+      _$_ProductListActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setQuery(String query) {
-    final _$actionInfo = _$ProductListBaseActionController.startAction(
-        name: 'ProductListBase.setQuery');
+    final _$actionInfo = _$_ProductListActionController.startAction(
+        name: '_ProductList.setQuery');
     try {
       return super.setQuery(query);
     } finally {
-      _$ProductListBaseActionController.endAction(_$actionInfo);
+      _$_ProductListActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void incrementPage() {
-    final _$actionInfo = _$ProductListBaseActionController.startAction(
-        name: 'ProductListBase.incrementPage');
+    final _$actionInfo = _$_ProductListActionController.startAction(
+        name: '_ProductList.incrementPage');
     try {
       return super.incrementPage();
     } finally {
-      _$ProductListBaseActionController.endAction(_$actionInfo);
+      _$_ProductListActionController.endAction(_$actionInfo);
     }
   }
 
@@ -172,9 +171,9 @@ canFetchNextPage: ${canFetchNextPage}
   }
 }
 
-mixin _$DisjunctiveFilterStore on DisjunctiveFilterBase, Store {
+mixin _$DisjunctiveFilterStore on _DisjunctiveFilter, Store {
   late final _$optionsAtom =
-      Atom(name: 'DisjunctiveFilterBase.options', context: context);
+      Atom(name: '_DisjunctiveFilter.options', context: context);
 
   @override
   ObservableList<String> get options {
@@ -190,7 +189,7 @@ mixin _$DisjunctiveFilterStore on DisjunctiveFilterBase, Store {
   }
 
   late final _$valuesAtom =
-      Atom(name: 'DisjunctiveFilterBase.values', context: context);
+      Atom(name: '_DisjunctiveFilter.values', context: context);
 
   @override
   ObservableList<String> get values {
@@ -205,17 +204,17 @@ mixin _$DisjunctiveFilterStore on DisjunctiveFilterBase, Store {
     });
   }
 
-  late final _$DisjunctiveFilterBaseActionController =
-      ActionController(name: 'DisjunctiveFilterBase', context: context);
+  late final _$_DisjunctiveFilterActionController =
+      ActionController(name: '_DisjunctiveFilter', context: context);
 
   @override
   void toggleValue(String value) {
-    final _$actionInfo = _$DisjunctiveFilterBaseActionController.startAction(
-        name: 'DisjunctiveFilterBase.toggleValue');
+    final _$actionInfo = _$_DisjunctiveFilterActionController.startAction(
+        name: '_DisjunctiveFilter.toggleValue');
     try {
       return super.toggleValue(value);
     } finally {
-      _$DisjunctiveFilterBaseActionController.endAction(_$actionInfo);
+      _$_DisjunctiveFilterActionController.endAction(_$actionInfo);
     }
   }
 

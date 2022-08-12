@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/cart/index.dart';
 import 'package:flutter_app/routes/settings/index.dart';
-import 'package:flutter_app/stores/product_list.dart';
-import 'package:flutter_app/stores/ui.dart';
+import 'package:flutter_app/stores/product_list/product_list.dart';
+import 'package:flutter_app/stores/ui/ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import './bottom_navigation.dart';
 import './tab_item.dart';

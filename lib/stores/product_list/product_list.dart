@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// ignore_for_file: library_private_types_in_public_api
 
 import 'package:algolia/algolia.dart';
 import 'package:flutter_app/utils/algolia.dart';
@@ -6,9 +6,9 @@ import 'package:mobx/mobx.dart';
 
 part 'product_list.g.dart';
 
-class ProductListStore = ProductListBase with _$ProductListStore;
+class ProductListStore = _ProductList with _$ProductListStore;
 
-abstract class ProductListBase with Store {
+abstract class _ProductList with Store {
   @observable
   ObservableList<Hit> hits = ObservableList<Hit>();
   @observable
@@ -25,7 +25,7 @@ abstract class ProductListBase with Store {
   Map<String, DisjunctiveFilterStore> disjunctiveFilters = {};
   List<FilterDefinition> filterDefinitions = [];
 
-  ProductListBase(InitialFilters initFilters, List<FilterDefinition> defs) {
+  _ProductList(InitialFilters initFilters, List<FilterDefinition> defs) {
     filterDefinitions = defs;
     for (var def in defs) {
       if (def.type == FilterType.disjunctive) {
@@ -154,13 +154,12 @@ class Hit {
   const Hit({required this.title, required this.imgUrl});
 }
 
-class DisjunctiveFilterStore = DisjunctiveFilterBase
-    with _$DisjunctiveFilterStore;
+class DisjunctiveFilterStore = _DisjunctiveFilter with _$DisjunctiveFilterStore;
 
-abstract class DisjunctiveFilterBase with Store {
+abstract class _DisjunctiveFilter with Store {
   final String key;
   final String label;
-  final ProductListBase parent;
+  final _ProductList parent;
 
   @observable
   ObservableList<String> options = ObservableList<String>();
@@ -168,7 +167,7 @@ abstract class DisjunctiveFilterBase with Store {
   @observable
   ObservableList<String> values = ObservableList<String>();
 
-  DisjunctiveFilterBase(
+  _DisjunctiveFilter(
       {required this.key, required this.label, required this.parent});
 
   @action
