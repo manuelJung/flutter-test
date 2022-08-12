@@ -14,7 +14,8 @@ class PDPRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PageController controller = PageController();
+    // final PageController controller = PageController();
+    uiStore.showBottomNavigation = false;
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -24,24 +25,27 @@ class PDPRoute extends StatelessWidget {
         body: PageView.builder(
             itemCount: 3,
             pageSnapping: true,
-            controller: controller,
+            // controller: controller,
             itemBuilder: (context, pagePosition) {
               double screenHeight = MediaQuery.of(context).size.height;
               double draggablePercent =
                   PDPRoute.initialBottomSheetHeight / screenHeight;
-              double maxDragablePercent = 1 - 80 / screenHeight;
-              DraggableScrollableController dragScrollController =
-                  DraggableScrollableController();
+              // double maxDragablePercent = 1 - 80 / screenHeight;
+              double maxDragablePercent = 1;
               return Stack(children: [
                 SizedBox(
                   height: screenHeight - PDPRoute.initialBottomSheetHeight,
-                  child: const Gallery(),
+                  child: VisibilityDetector(
+                      key: Key('pdp-visiblity-detector$index'),
+                      onVisibilityChanged: (info) => uiStore
+                          .showBottomNavigation = info.visibleBounds.isEmpty,
+                      child: const Gallery()),
                 ),
                 DraggableScrollableSheet(
                     initialChildSize: draggablePercent,
                     maxChildSize: maxDragablePercent,
                     minChildSize: draggablePercent,
-                    controller: dragScrollController,
+                    // controller: dragScrollController,
                     builder: (BuildContext context,
                         ScrollController scrollController) {
                       return Container(
