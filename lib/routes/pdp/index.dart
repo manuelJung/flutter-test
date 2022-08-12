@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/routes/home/index.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/stores/product_list.dart';
 import 'package:flutter_app/stores/ui.dart';
@@ -10,11 +9,8 @@ class PDPRoute extends StatelessWidget {
   final int index;
   const PDPRoute({super.key, required this.store, required this.index});
 
-  static const double initialBottomSheetHeight = 150;
-
   @override
   Widget build(BuildContext context) {
-    // final PageController controller = PageController();
     uiStore.showBottomNavigation = false;
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -25,16 +21,16 @@ class PDPRoute extends StatelessWidget {
         body: PageView.builder(
             itemCount: 3,
             pageSnapping: true,
-            // controller: controller,
             itemBuilder: (context, pagePosition) {
-              double screenHeight = MediaQuery.of(context).size.height;
+              var size = MediaQuery.of(context).size;
+              double bottomSheetHeight = size.height - size.width;
+              double radiusOffset = 10 / size.height;
               double draggablePercent =
-                  PDPRoute.initialBottomSheetHeight / screenHeight;
-              // double maxDragablePercent = 1 - 80 / screenHeight;
+                  (bottomSheetHeight / size.height) + radiusOffset;
               double maxDragablePercent = 1;
               return Stack(children: [
                 SizedBox(
-                  height: screenHeight - PDPRoute.initialBottomSheetHeight,
+                  height: size.height - bottomSheetHeight,
                   child: VisibilityDetector(
                       key: Key('pdp-visiblity-detector$index'),
                       onVisibilityChanged: (info) => uiStore
@@ -45,14 +41,20 @@ class PDPRoute extends StatelessWidget {
                     initialChildSize: draggablePercent,
                     maxChildSize: maxDragablePercent,
                     minChildSize: draggablePercent,
-                    // controller: dragScrollController,
                     builder: (BuildContext context,
                         ScrollController scrollController) {
                       return Container(
-                          color: Colors.blue[100],
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 1.0, color: Colors.grey),
+                              borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  topLeft: Radius.circular(10)),
+                              color: Colors.white),
                           child: ListView.builder(
                               controller: scrollController,
                               itemCount: 25,
+                              physics: const ClampingScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
                                 return const Placeholder(
                                   fallbackHeight: 200,

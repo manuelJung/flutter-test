@@ -11,17 +11,14 @@ class Gallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PageController controller = PageController();
     return PageView.builder(
       itemCount: colors.length,
-      controller: controller,
       pageSnapping: true,
       allowImplicitScrolling: true,
-      physics: const BouncingScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemBuilder: (context, pagePosition) {
         return Container(
-          height: 20,
           width: double.infinity,
           color: colors[pagePosition],
           child: Center(
