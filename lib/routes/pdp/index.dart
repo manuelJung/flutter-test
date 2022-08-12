@@ -52,6 +52,7 @@ class _PDPRouteState extends State<PDPRoute> {
                 double maxDragablePercent = 1;
                 double headerHeight = AnimatedAppBar.headerHeight;
                 double headerPercent = headerHeight / size.height;
+
                 return Stack(children: [
                   SizedBox(
                     height: size.height - bottomSheetHeight,
@@ -63,6 +64,7 @@ class _PDPRouteState extends State<PDPRoute> {
                           fallbackImage: widget.store.hits[pagePosition].imgUrl,
                         )),
                   ),
+                  BackButton(scrollPos: scrollPos),
                   AnimatedAppBar(scrollPos: scrollPos),
                   CustomBottomSheet(
                     scrollPos: scrollPos,
@@ -70,7 +72,7 @@ class _PDPRouteState extends State<PDPRoute> {
                     headerPercent: headerPercent,
                     maxDragablePercent: maxDragablePercent,
                     children: [
-                      SheetTitle(counter: scrollPos),
+                      SheetTitle(scrollPos: scrollPos),
                       const SheetBox(),
                       const SheetBox(),
                       const SheetBox(),
@@ -82,5 +84,45 @@ class _PDPRouteState extends State<PDPRoute> {
                 ]);
               });
         }));
+  }
+}
+
+class BackButton extends StatelessWidget {
+  const BackButton({
+    Key? key,
+    required this.scrollPos,
+  }) : super(key: key);
+
+  final AnimatedValue scrollPos;
+
+  @override
+  Widget build(BuildContext context) {
+    return Observer(builder: (context) {
+      double size = scrollPos.interpolate(
+        xs: [0, 0.4, 0.8, 1],
+        ys: [1, 1, 0, 0],
+      );
+      return Opacity(
+        opacity: size,
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(100)),
+          width: 50,
+          height: 50,
+          padding: EdgeInsets.zero,
+          margin: const EdgeInsets.only(top: 20, left: 10),
+          child: Center(
+              child: IconButton(
+            padding: EdgeInsets.zero,
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              size: size * 20,
+            ),
+            onPressed: () => Navigator.pop(context),
+          )),
+        ),
+      );
+    });
   }
 }

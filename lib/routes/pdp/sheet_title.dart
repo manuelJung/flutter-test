@@ -3,8 +3,8 @@ import 'package:flutter_app/stores/animated_value.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class SheetTitle extends StatelessWidget {
-  final AnimatedValue counter;
-  const SheetTitle({super.key, required this.counter});
+  final AnimatedValue scrollPos;
+  const SheetTitle({super.key, required this.scrollPos});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SheetTitle extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Observer(builder: (context) {
               double animated =
-                  counter.interpolate(xs: [0, 0.6, 1], ys: [0, 0, 1]);
+                  scrollPos.interpolate(xs: [0, 0.6, 1], ys: [0, 0, 1]);
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 height: 4.0,
