@@ -91,13 +91,15 @@ class PDPPage extends StatefulWidget {
 }
 
 class _PDPPageState extends State<PDPPage> {
-  final scrollPos = AnimatedValue();
-
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (context) =>
-          PDPStore(containerID: widget.hit.productNumber, sku: widget.hit.sku),
+    return MultiProvider(
+      providers: [
+        Provider(
+            create: (context) => PDPStore(
+                containerID: widget.hit.productNumber, sku: widget.hit.sku)),
+        Provider(create: (context) => AnimatedValue()),
+      ],
       child: Stack(children: [
         SizedBox(
           height: widget.size.height - widget.bottomSheetHeight,
@@ -105,16 +107,14 @@ class _PDPPageState extends State<PDPPage> {
             fallbackImage: widget.hit.imgUrl,
           ),
         ),
-        CustomBackButton(scrollPos: scrollPos),
-        AnimatedAppBar(scrollPos: scrollPos),
+        const CustomBackButton(),
+        const AnimatedAppBar(),
         CustomBottomSheet(
-          scrollPos: scrollPos,
           draggablePercent: widget.draggablePercent,
           headerPercent: widget.headerPercent,
           maxDragablePercent: widget.maxDragablePercent,
           children: [
             SheetTitle(
-              scrollPos: scrollPos,
               listingHit: widget.hit,
             ),
             const SheetBox(),

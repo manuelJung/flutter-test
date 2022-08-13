@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class SheetTitle extends StatelessWidget {
   final ListingHit listingHit;
-  final AnimatedValue scrollPos;
-  const SheetTitle(
-      {super.key, required this.scrollPos, required this.listingHit});
+  const SheetTitle({super.key, required this.listingHit});
 
   @override
   Widget build(BuildContext context) {
+    var scrollPos = context.read<AnimatedValue>();
     return Observer(builder: (context) {
       double rounding = scrollPos.interpolate(xs: [0, 0.6, 1], ys: [10, 10, 0]);
       return Container(

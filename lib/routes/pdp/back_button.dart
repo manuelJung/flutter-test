@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({
     Key? key,
-    required this.scrollPos,
   }) : super(key: key);
-
-  final AnimatedValue scrollPos;
 
   @override
   Widget build(BuildContext context) {
+    var scrollPos = context.read<AnimatedValue>();
     return Observer(builder: (context) {
       double size = scrollPos.interpolate(
         xs: [0, 0.4, 0.8, 1],

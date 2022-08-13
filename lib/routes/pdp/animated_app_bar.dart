@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class AnimatedAppBar extends StatelessWidget {
   const AnimatedAppBar({
     Key? key,
-    required this.scrollPos,
   }) : super(key: key);
-
-  final AnimatedValue scrollPos;
 
   static double headerHeight = 80;
 
   @override
   Widget build(BuildContext context) {
+    var scrollPos = context.read<AnimatedValue>();
     return Observer(builder: (context) {
       double animated = scrollPos.interpolate(xs: [0, 0.6, 1], ys: [0, 0, 1]);
       double opacity = scrollPos.interpolate(xs: [0, 0.9, 1], ys: [0, 0, 1]);
