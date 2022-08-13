@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 
-enum TabItem { home, listing, settings, cart }
+enum TabItem { home, discover, listing, cart, settings }
 
 const Map<TabItem, String> tabName = {
   TabItem.home: 'Home',
+  TabItem.discover: 'Entdecken',
   TabItem.listing: 'Listing',
-  TabItem.settings: 'Settings',
   TabItem.cart: 'Cart',
+  TabItem.settings: 'Settings',
 };
 
 const Map<TabItem, String> routePaths = {
   TabItem.home: 'home',
+  TabItem.discover: 'discover',
   TabItem.listing: 'listing',
-  TabItem.settings: 'settings',
   TabItem.cart: 'cart',
+  TabItem.settings: 'settings',
 };
 
 const Map<TabItem, IconData> routeIcons = {
   TabItem.home: Icons.shop,
+  TabItem.discover: Icons.fireplace_rounded,
   TabItem.listing: Icons.layers,
-  TabItem.settings: Icons.settings,
   TabItem.cart: Icons.shopping_cart,
+  TabItem.settings: Icons.settings,
 };

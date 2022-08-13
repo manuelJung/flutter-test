@@ -13,9 +13,10 @@ class BottomNavigation extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: [
         _buildItem(context, TabItem.home),
+        _buildItem(context, TabItem.discover),
         _buildItem(context, TabItem.listing),
-        _buildItem(context, TabItem.settings),
         _buildItem(context, TabItem.cart),
+        _buildItem(context, TabItem.settings),
       ],
       onTap: (index) => onSelectTab(
         TabItem.values[index],

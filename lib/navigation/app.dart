@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/cart/index.dart';
+import 'package:flutter_app/routes/discover/index.dart';
 import 'package:flutter_app/routes/settings/index.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:flutter_app/stores/ui/ui.dart';
@@ -20,7 +21,10 @@ class _AppState extends State<App> {
   TabItem _currentTab = TabItem.home;
   final _navigatorKeys = {
     TabItem.home: GlobalKey<NavigatorState>(),
+    TabItem.discover: GlobalKey<NavigatorState>(),
     TabItem.listing: GlobalKey<NavigatorState>(),
+    TabItem.cart: GlobalKey<NavigatorState>(),
+    TabItem.settings: GlobalKey<NavigatorState>(),
   };
 
   void _selectTab(TabItem item) {
@@ -52,9 +56,10 @@ class _AppState extends State<App> {
       child: Scaffold(
         body: Stack(children: [
           _buildOffstageNavigator(TabItem.home),
+          _buildOffstageNavigator(TabItem.discover),
           _buildOffstageNavigator(TabItem.listing),
-          _buildOffstageNavigator(TabItem.settings),
           _buildOffstageNavigator(TabItem.cart),
+          _buildOffstageNavigator(TabItem.settings),
         ]),
         bottomNavigationBar: Observer(builder: (context) {
           return AnimatedContainer(
@@ -77,10 +82,11 @@ class _AppState extends State<App> {
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
       routePaths[TabItem.home]!: (context) => const HomeRoute(),
-      routePaths[TabItem.settings]!: (context) => const SettingsRoute(),
-      routePaths[TabItem.cart]!: (context) => const CartRoute(),
+      routePaths[TabItem.discover]!: (context) => const DiscoverRoute(),
       routePaths[TabItem.listing]!: (context) =>
           const ListingRoute(initialFilters: InitialFilters()),
+      routePaths[TabItem.cart]!: (context) => const CartRoute(),
+      routePaths[TabItem.settings]!: (context) => const SettingsRoute(),
     };
   }
 
