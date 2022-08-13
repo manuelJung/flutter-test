@@ -4,6 +4,7 @@ import 'package:flutter_app/routes/pdp/sheet_box.dart';
 import 'package:flutter_app/routes/pdp/sheet_title.dart';
 import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_app/stores/pdp/pdp.dart';
+import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:flutter_app/stores/ui/ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -82,7 +83,7 @@ class PDPPage extends StatefulWidget {
   final double bottomSheetHeight;
   final double draggablePercent;
   final double headerPercent;
-  final Hit hit;
+  final ListingHit hit;
   final double maxDragablePercent;
 
   @override

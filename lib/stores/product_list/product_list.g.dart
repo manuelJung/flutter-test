@@ -20,13 +20,13 @@ mixin _$ProductListStore on _ProductList, Store {
   late final _$hitsAtom = Atom(name: '_ProductList.hits', context: context);
 
   @override
-  ObservableList<Hit> get hits {
+  ObservableList<ListingHit> get hits {
     _$hitsAtom.reportRead();
     return super.hits;
   }
 
   @override
-  set hits(ObservableList<Hit> value) {
+  set hits(ObservableList<ListingHit> value) {
     _$hitsAtom.reportWrite(value, super.hits, () {
       super.hits = value;
     });

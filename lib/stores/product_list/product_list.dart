@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:algolia/algolia.dart';
+import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_app/utils/algolia.dart';
 import 'package:mobx/mobx.dart';
 
@@ -10,7 +11,7 @@ class ProductListStore = _ProductList with _$ProductListStore;
 
 abstract class _ProductList with Store {
   @observable
-  ObservableList<Hit> hits = ObservableList<Hit>();
+  ObservableList<ListingHit> hits = ObservableList<ListingHit>();
   @observable
   String query = '';
   @observable
@@ -78,20 +79,13 @@ abstract class _ProductList with Store {
     try {
       AlgoliaQuery query = _createQuery();
       AlgoliaQuerySnapshot snap = await query.getObjects();
-      String imgHost =
-          'https://res.cloudinary.com/lusini/w_500,h_500,q_70,c_pad,f_auto';
 
       Action(() {
         isFetching = false;
         if (page == 0) hits.clear();
         hits.addAll([
           for (var hit in snap.hits.map((hit) => hit.toMap()))
-            Hit(
-                title: hit['title'],
-                sku: hit['sku'],
-                subtitle: hit['subtitle'],
-                productNumber: hit['containerID'],
-                imgUrl: '$imgHost/${hit['images']['imageWeb'][0]['url']}')
+            ListingHit.fromAlgolia(hit)
         ]);
 
         for (var def in filterDefinitions) {
@@ -157,20 +151,6 @@ class FilterDefinition {
   final String label;
   final String key;
   final FilterType type;
-}
-
-class Hit {
-  final String title;
-  final String imgUrl;
-  final String sku;
-  final String productNumber;
-  final String subtitle;
-  const Hit(
-      {required this.title,
-      required this.imgUrl,
-      required this.sku,
-      required this.subtitle,
-      required this.productNumber});
 }
 
 class DisjunctiveFilterStore = _DisjunctiveFilter with _$DisjunctiveFilterStore;

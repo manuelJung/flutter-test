@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/stores/animated_value/animated_value.dart';
-import 'package:flutter_app/stores/product_list/product_list.dart';
+import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class SheetTitle extends StatelessWidget {
-  final Hit listingHit;
+  final ListingHit listingHit;
   final AnimatedValue scrollPos;
   const SheetTitle(
       {super.key, required this.scrollPos, required this.listingHit});
