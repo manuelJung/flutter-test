@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:algolia/algolia.dart';
+import 'package:flutter_app/stores/pdp/pdp_hit.dart';
 import 'package:flutter_app/utils/algolia.dart';
 import 'package:mobx/mobx.dart';
 
@@ -33,9 +34,19 @@ abstract class _PDP with Store {
   }
 
   @computed
-  PDPHit get displayVariant => hits.isNotEmpty
-      ? hits[0] //.firstWhere((element) => element.sku == sku)
-      : const PDPHit(title: '', imgUrl: '', imgList: [], sku: '');
+  PDPHit get displayVariant {
+    assert(hits.isNotEmpty,
+        'you cannot access displayVariant before fetch finished');
+
+    return hits.firstWhere(
+        (hit) => hit.match(
+              color: filters[FilterKey.color]!.value,
+              size: filters[FilterKey.size]!.value,
+              variant: filters[FilterKey.variant]!.value,
+              style: filters[FilterKey.style]!.value,
+            ),
+        orElse: () => PDPHit.empty());
+  }
 
   _fetch() async {
     Action(() {
@@ -45,8 +56,15 @@ abstract class _PDP with Store {
 
     AlgoliaQuery query = algolia.instance.index('prod_lusini_de_DE_products');
 
-    query = query.setAttributesToRetrieve(
-        ['sku', 'containerID', 'images', 'title', 'flags', 'attributes']);
+    query = query.setAttributesToRetrieve([
+      'sku',
+      'containerID',
+      'images',
+      'title',
+      'flags',
+      'attributes',
+      'variantData'
+    ]);
 
     // query = query.setFacets(['productNumber']);
     query = query.facetFilter('containerID:$containerID');
@@ -55,29 +73,12 @@ abstract class _PDP with Store {
     try {
       AlgoliaQuerySnapshot snap = await query.getObjects();
 
-      String imgHost =
-          'https://res.cloudinary.com/lusini/w_500,h_500,q_70,c_pad,f_auto';
-
       Action(() {
         isFetching = false;
-        for (var hit in snap.hits.map((hit) => hit.toMap())) {
-          List<Map<String, dynamic>> imagesRaw = [...hit['images']['imageWeb']];
-          List<String> images = [];
-          for (var img in imagesRaw) {
-            if (img['classes'].contains('ASSET_M')) {
-              String imgHost =
-                  'https://res.cloudinary.com/lusini/w_500,h_500,g_auto,q_70,c_fill,f_auto';
-              images.add('$imgHost/${img['url']}');
-            } else {
-              images.add('$imgHost/${img['url']}');
-            }
-          }
-          hits.add(PDPHit(
-              title: hit['title'],
-              imgUrl: '$imgHost/${hit['images']['imageWeb'][0]['url']}',
-              imgList: images,
-              sku: hit['sku']));
-        }
+        hits.addAll([
+          for (var hit in snap.hits.map((hit) => hit.toMap()))
+            PDPHit.fromAlgoliaHit(hit)
+        ]);
       })();
     } catch (e, stack) {
       print(e);
@@ -88,18 +89,6 @@ abstract class _PDP with Store {
       })();
     }
   }
-}
-
-class PDPHit {
-  final String title;
-  final String imgUrl;
-  final List<String> imgList;
-  final String sku;
-  const PDPHit(
-      {required this.title,
-      required this.imgUrl,
-      required this.imgList,
-      required this.sku});
 }
 
 enum FilterKey { variant, style, size, color }
@@ -114,4 +103,10 @@ abstract class _Filter with Store {
 
   final FilterKey key;
   _Filter({required this.key});
+
+  @action
+  setValue(String value) {
+    assert(options.contains(value));
+    this.value = value;
+  }
 }

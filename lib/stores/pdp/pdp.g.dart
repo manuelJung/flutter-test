@@ -104,6 +104,20 @@ mixin _$FilterStore on _Filter, Store {
     });
   }
 
+  late final _$_FilterActionController =
+      ActionController(name: '_Filter', context: context);
+
+  @override
+  dynamic setValue(String value) {
+    final _$actionInfo =
+        _$_FilterActionController.startAction(name: '_Filter.setValue');
+    try {
+      return super.setValue(value);
+    } finally {
+      _$_FilterActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
