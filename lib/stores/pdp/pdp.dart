@@ -26,11 +26,16 @@ abstract class _PDP with Store {
   };
 
   final String sku;
-  final String productNumber;
+  final String containerID;
 
-  _PDP({required this.sku, required this.productNumber}) {
+  _PDP({required this.sku, required this.containerID}) {
     _fetch();
   }
+
+  @computed
+  PDPHit get displayVariant => hits.isNotEmpty
+      ? hits.firstWhere((element) => element.sku == sku)
+      : const PDPHit(title: '', imgUrl: '', imgList: [], sku: '');
 
   _fetch() async {
     Action(() {
@@ -43,7 +48,8 @@ abstract class _PDP with Store {
     query = query.setAttributesToRetrieve(
         ['sku', 'containerID', 'images', 'title', 'flags', 'attributes']);
 
-    query = query.facetFilter('productNumber:$productNumber');
+    // query = query.setFacets(['productNumber']);
+    query = query.facetFilter('containerID:$containerID');
     query = query.setDistinct(value: 0);
 
     try {
@@ -58,15 +64,17 @@ abstract class _PDP with Store {
           for (var hit in snap.hits.map((hit) => hit.toMap()))
             PDPHit(
               title: hit['title'],
+              sku: hit['sku'],
               imgUrl: '$imgHost/${hit['images']['imageWeb'][0]['url']}',
-              imgList: hit['images']['imageWeb']
-                  .toList()
-                  .map((l) => '$imgHost/${l['url']}'),
+              imgList: [...hit['images']['imageWeb']]
+                  .map((l) => '$imgHost/${l['url']}')
+                  .toList(),
             )
         ]);
       })();
-    } catch (e) {
+    } catch (e, stack) {
       print(e);
+      print(stack);
       Action(() {
         isFetching = false;
         fetchError = e.toString();
@@ -79,8 +87,12 @@ class PDPHit {
   final String title;
   final String imgUrl;
   final List<String> imgList;
+  final String sku;
   const PDPHit(
-      {required this.title, required this.imgUrl, required this.imgList});
+      {required this.title,
+      required this.imgUrl,
+      required this.imgList,
+      required this.sku});
 }
 
 enum FilterKey { variant, style, size, color }

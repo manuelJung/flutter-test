@@ -7,6 +7,7 @@ import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:flutter_app/stores/ui/ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import 'animated_app_bar.dart';
@@ -90,37 +91,40 @@ class PDPPage extends StatefulWidget {
 
 class _PDPPageState extends State<PDPPage> {
   final scrollPos = AnimatedValue();
-  final pdpStore = PDPStore(productNumber: '123456', sku: '12345678');
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      SizedBox(
-        height: widget.size.height - widget.bottomSheetHeight,
-        child: Gallery(
-          fallbackImage: widget.hit.imgUrl,
-        ),
-      ),
-      CustomBackButton(scrollPos: scrollPos),
-      AnimatedAppBar(scrollPos: scrollPos),
-      CustomBottomSheet(
-        scrollPos: scrollPos,
-        draggablePercent: widget.draggablePercent,
-        headerPercent: widget.headerPercent,
-        maxDragablePercent: widget.maxDragablePercent,
-        children: [
-          SheetTitle(
-            scrollPos: scrollPos,
-            listingHit: widget.hit,
+    return Provider(
+      create: (context) =>
+          PDPStore(containerID: widget.hit.productNumber, sku: widget.hit.sku),
+      child: Stack(children: [
+        SizedBox(
+          height: widget.size.height - widget.bottomSheetHeight,
+          child: Gallery(
+            fallbackImage: widget.hit.imgUrl,
           ),
-          const SheetBox(),
-          const SheetBox(),
-          const SheetBox(),
-          const SheetBox(),
-          const SheetBox(),
-          const SheetBox(),
-        ],
-      )
-    ]);
+        ),
+        CustomBackButton(scrollPos: scrollPos),
+        AnimatedAppBar(scrollPos: scrollPos),
+        CustomBottomSheet(
+          scrollPos: scrollPos,
+          draggablePercent: widget.draggablePercent,
+          headerPercent: widget.headerPercent,
+          maxDragablePercent: widget.maxDragablePercent,
+          children: [
+            SheetTitle(
+              scrollPos: scrollPos,
+              listingHit: widget.hit,
+            ),
+            const SheetBox(),
+            const SheetBox(),
+            const SheetBox(),
+            const SheetBox(),
+            const SheetBox(),
+            const SheetBox(),
+          ],
+        )
+      ]),
+    );
   }
 }
