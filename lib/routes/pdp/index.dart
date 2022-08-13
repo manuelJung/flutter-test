@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/routes/pdp/animations.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/routes/pdp/sheet_box.dart';
 import 'package:flutter_app/routes/pdp/sheet_title.dart';
-import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
@@ -98,7 +98,7 @@ class _PDPPageState extends State<PDPPage> {
         Provider(
             create: (context) => PDPStore(
                 containerID: widget.hit.productNumber, sku: widget.hit.sku)),
-        Provider(create: (context) => AnimatedValue()),
+        Provider(create: (context) => BottomSheetAnimation()),
       ],
       child: Stack(children: [
         SizedBox(

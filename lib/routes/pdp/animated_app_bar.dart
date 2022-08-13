@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+
+import 'animations.dart';
 
 class AnimatedAppBar extends StatelessWidget {
   const AnimatedAppBar({
@@ -12,7 +13,7 @@ class AnimatedAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scrollPos = context.read<AnimatedValue>();
+    var scrollPos = context.read<BottomSheetAnimation>();
     return Observer(builder: (context) {
       double animated = scrollPos.interpolate(xs: [0, 0.6, 1], ys: [0, 0, 1]);
       double opacity = scrollPos.interpolate(xs: [0, 0.9, 1], ys: [0, 0, 1]);

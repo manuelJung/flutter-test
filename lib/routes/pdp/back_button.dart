@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+
+import 'animations.dart';
 
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({
@@ -10,7 +11,7 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scrollPos = context.read<AnimatedValue>();
+    var scrollPos = context.read<BottomSheetAnimation>();
     return Observer(builder: (context) {
       double size = scrollPos.interpolate(
         xs: [0, 0.4, 0.8, 1],

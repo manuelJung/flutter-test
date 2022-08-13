@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_app/utils/math.dart';
 import 'package:provider/provider.dart';
+
+import 'animations.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({
@@ -19,7 +20,7 @@ class CustomBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scrollPos = context.read<AnimatedValue>();
+    var scrollPos = context.read<BottomSheetAnimation>();
     return NotificationListener<DraggableScrollableNotification>(
       onNotification: (notification) {
         scrollPos.setValue(Math.interpolate(
