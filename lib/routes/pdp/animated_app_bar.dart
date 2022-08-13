@@ -23,7 +23,7 @@ class AnimatedAppBar extends StatelessWidget {
           top: -headerHeight + headerHeight * animated,
           height: headerHeight,
           child: Container(
-            color: Colors.blue,
+            color: Theme.of(context).colorScheme.primary,
             child: Opacity(
                 opacity: opacity, child: AppBar(title: const Text('PDP'))),
           ));

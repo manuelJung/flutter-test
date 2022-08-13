@@ -40,7 +40,7 @@ class ListingRoute extends StatelessWidget {
                             store: Provider.of<ProductListStore>(context),
                           )));
             },
-            backgroundColor: Colors.blue,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             child: const Icon(Icons.filter_alt_sharp),
           );
         }),
