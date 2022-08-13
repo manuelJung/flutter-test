@@ -1,3 +1,5 @@
+import 'package:flutter_app/utils/img_transform.dart';
+
 class PDPHit {
   final String title;
   final String imgUrl;
@@ -50,22 +52,10 @@ class PDPHit {
 
   factory PDPHit.fromAlgoliaHit(Map<String, dynamic> hit) {
     List<Map<String, dynamic>> imagesRaw = [...hit['images']['imageWeb']];
-    String imgHost =
-        'https://res.cloudinary.com/lusini/w_500,h_500,q_70,c_pad,f_auto';
-    List<String> images = [];
-    for (var img in imagesRaw) {
-      if (img['classes'].contains('ASSET_M')) {
-        String imgHost =
-            'https://res.cloudinary.com/lusini/w_500,h_500,g_auto,q_70,c_fill,f_auto';
-        images.add('$imgHost/${img['url']}');
-      } else {
-        images.add('$imgHost/${img['url']}');
-      }
-    }
     return PDPHit(
         title: hit['title'],
-        imgUrl: '$imgHost/${hit['images']['imageWeb'][0]['url']}',
-        imgList: images,
+        imgUrl: ImgTransform.generate(hit['images']['imageWeb'][0]),
+        imgList: imagesRaw.map((e) => ImgTransform.generate(e)).toList(),
         color: hit['variantData']['color']['label'] ?? '',
         variant: hit['variantData']['variant']['label'] ?? '',
         style: hit['variantData']['style']['label'] ?? '',
