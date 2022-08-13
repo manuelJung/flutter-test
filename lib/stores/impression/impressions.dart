@@ -33,6 +33,7 @@ abstract class _ImpressionsStore with Store {
   }
 
   _fetch() async {
+    if (isFetching) return;
     Action(() {
       isFetching = true;
       fetchError = '';

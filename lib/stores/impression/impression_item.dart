@@ -9,7 +9,7 @@ class ImpressionItem {
 
   static bool hasMilieu(Map<String, dynamic> hit) {
     List<dynamic> images = [...hit['images']['imageWeb']]
-        .map((el) => el['classes'] as List<String>)
+        .map((el) => el['classes'] as List<dynamic>)
         .where((el) => el.contains('ASSET_M'))
         .toList();
 
