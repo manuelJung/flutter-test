@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/pdp/animations.dart';
+import 'package:flutter_app/routes/pdp/buy_button.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/routes/pdp/sheet_box.dart';
 import 'package:flutter_app/routes/pdp/sheet_title.dart';
@@ -114,9 +115,8 @@ class _PDPPageState extends State<PDPPage> {
           headerPercent: widget.headerPercent,
           maxDragablePercent: widget.maxDragablePercent,
           children: [
-            SheetTitle(
-              listingHit: widget.hit,
-            ),
+            SheetTitle(listingHit: widget.hit),
+            const BuyButton(),
             const SheetBox(),
             const SheetBox(),
             const SheetBox(),
