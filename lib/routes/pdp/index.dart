@@ -48,7 +48,7 @@ class PDPRoute extends StatelessWidget {
                     initialPage: index, keepPage: true, viewportFraction: 1),
                 itemBuilder: (context, pagePosition) {
                   var size = MediaQuery.of(context).size;
-                  double bottomSheetHeight = size.height - size.width;
+                  double bottomSheetHeight = 180;
                   double radiusOffset = 10 / size.height;
                   double draggablePercent =
                       (bottomSheetHeight / size.height) + radiusOffset;

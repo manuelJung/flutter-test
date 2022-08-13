@@ -14,7 +14,14 @@ class BuyButton extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: (() {}),
-          child: const Text('Hinzufügen'),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(15),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+          child: const Text(
+            'Größe wählen',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
         )
       ]),
     );
