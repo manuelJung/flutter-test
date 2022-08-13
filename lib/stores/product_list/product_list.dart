@@ -94,7 +94,6 @@ abstract class _ProductList with Store {
                 imgUrl: '$imgHost/${hit['images']['imageWeb'][0]['url']}')
         ]);
 
-        // print(snap.facets.keys.toList());
         for (var def in filterDefinitions) {
           if (def.type == FilterType.disjunctive) {
             var filter = disjunctiveFilters[def.key]!;
@@ -107,8 +106,9 @@ abstract class _ProductList with Store {
           }
         }
       })();
-    } catch (e) {
+    } catch (e, stack) {
       print(e);
+      print(stack);
       Action(() {
         isFetching = false;
         fetchError = e.toString();

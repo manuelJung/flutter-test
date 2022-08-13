@@ -34,7 +34,7 @@ abstract class _PDP with Store {
 
   @computed
   PDPHit get displayVariant => hits.isNotEmpty
-      ? hits.firstWhere((element) => element.sku == sku)
+      ? hits[0] //.firstWhere((element) => element.sku == sku)
       : const PDPHit(title: '', imgUrl: '', imgList: [], sku: '');
 
   _fetch() async {
@@ -60,17 +60,24 @@ abstract class _PDP with Store {
 
       Action(() {
         isFetching = false;
-        hits.addAll([
-          for (var hit in snap.hits.map((hit) => hit.toMap()))
-            PDPHit(
+        for (var hit in snap.hits.map((hit) => hit.toMap())) {
+          List<Map<String, dynamic>> imagesRaw = [...hit['images']['imageWeb']];
+          List<String> images = [];
+          for (var img in imagesRaw) {
+            if (img['classes'].contains('ASSET_M')) {
+              String imgHost =
+                  'https://res.cloudinary.com/lusini/w_500,h_500,g_auto,q_70,c_fill,f_auto';
+              images.add('$imgHost/${img['url']}');
+            } else {
+              images.add('$imgHost/${img['url']}');
+            }
+          }
+          hits.add(PDPHit(
               title: hit['title'],
-              sku: hit['sku'],
               imgUrl: '$imgHost/${hit['images']['imageWeb'][0]['url']}',
-              imgList: [...hit['images']['imageWeb']]
-                  .map((l) => '$imgHost/${l['url']}')
-                  .toList(),
-            )
-        ]);
+              imgList: images,
+              sku: hit['sku']));
+        }
       })();
     } catch (e, stack) {
       print(e);

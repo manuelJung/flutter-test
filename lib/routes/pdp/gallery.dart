@@ -24,7 +24,7 @@ class Gallery extends StatelessWidget {
         itemBuilder: (context, index) {
           return Center(
             child: Image.network(store.displayVariant.imgList[index],
-                width: size.width - 20, height: size.width - 20),
+                width: size.width, height: size.width),
           );
         },
       );
@@ -34,8 +34,8 @@ class Gallery extends StatelessWidget {
   Widget _loadingBuild(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Center(
-      child: Image.network(fallbackImage,
-          width: size.width - 20, height: size.width - 20),
+      child:
+          Image.network(fallbackImage, width: size.width, height: size.width),
     );
   }
 }
