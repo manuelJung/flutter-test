@@ -29,7 +29,6 @@ abstract class _PDP with Store {
   final String productNumber;
 
   _PDP({required this.sku, required this.productNumber}) {
-    print('run $productNumber');
     _fetch();
   }
 

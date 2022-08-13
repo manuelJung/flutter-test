@@ -89,6 +89,7 @@ abstract class _ProductList with Store {
             Hit(
                 title: hit['title'],
                 sku: hit['sku'],
+                subtitle: hit['subtitle'],
                 productNumber: hit['containerID'],
                 imgUrl: '$imgHost/${hit['images']['imageWeb'][0]['url']}')
         ]);
@@ -125,7 +126,8 @@ abstract class _ProductList with Store {
       'title',
       'flags',
       'attributes',
-      'containerID'
+      'containerID',
+      'subtitle',
     ]);
 
     query = query.setPage(page);
@@ -162,10 +164,12 @@ class Hit {
   final String imgUrl;
   final String sku;
   final String productNumber;
+  final String subtitle;
   const Hit(
       {required this.title,
       required this.imgUrl,
       required this.sku,
+      required this.subtitle,
       required this.productNumber});
 }
 

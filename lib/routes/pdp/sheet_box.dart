@@ -5,6 +5,9 @@ class SheetBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(fallbackHeight: 400);
+    return Container(
+      color: Colors.transparent,
+      height: 400,
+    );
   }
 }

@@ -33,9 +33,11 @@ class CustomBottomSheet extends StatelessWidget {
           initialChildSize: draggablePercent,
           maxChildSize: maxDragablePercent - headerPercent,
           minChildSize: draggablePercent,
+          snap: true,
+          snapSizes: [draggablePercent, maxDragablePercent - headerPercent],
           builder: (BuildContext context, ScrollController scrollController) {
             return Container(
-                color: Colors.grey[200],
+                color: Colors.grey[100],
                 child: MediaQuery.removePadding(
                   context: context,
                   removeTop: true,
