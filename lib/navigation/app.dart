@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/cart/index.dart';
 import 'package:flutter_app/routes/discover/index.dart';
 import 'package:flutter_app/routes/settings/index.dart';
-import 'package:flutter_app/stores/product_list/product_list.dart';
+import 'package:flutter_app/routes/wishlist/index.dart';
 import 'package:flutter_app/stores/ui/ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import './bottom_navigation.dart';
 import './tab_item.dart';
 import '../routes/home/index.dart';
-import '../routes/listing/index.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -22,7 +21,7 @@ class _AppState extends State<App> {
   final _navigatorKeys = {
     TabItem.home: GlobalKey<NavigatorState>(),
     TabItem.discover: GlobalKey<NavigatorState>(),
-    TabItem.listing: GlobalKey<NavigatorState>(),
+    TabItem.wishlist: GlobalKey<NavigatorState>(),
     TabItem.cart: GlobalKey<NavigatorState>(),
     TabItem.settings: GlobalKey<NavigatorState>(),
   };
@@ -57,7 +56,7 @@ class _AppState extends State<App> {
         body: Stack(children: [
           _buildOffstageNavigator(TabItem.home),
           _buildOffstageNavigator(TabItem.discover),
-          _buildOffstageNavigator(TabItem.listing),
+          _buildOffstageNavigator(TabItem.wishlist),
           _buildOffstageNavigator(TabItem.cart),
           _buildOffstageNavigator(TabItem.settings),
         ]),
@@ -83,8 +82,7 @@ class _AppState extends State<App> {
     return {
       routePaths[TabItem.home]!: (context) => const HomeRoute(),
       routePaths[TabItem.discover]!: (context) => const DiscoverRoute(),
-      routePaths[TabItem.listing]!: (context) =>
-          const ListingRoute(initialFilters: InitialFilters()),
+      routePaths[TabItem.wishlist]!: (context) => const WishlistRoute(),
       routePaths[TabItem.cart]!: (context) => const CartRoute(),
       routePaths[TabItem.settings]!: (context) => const SettingsRoute(),
     };

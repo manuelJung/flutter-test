@@ -14,7 +14,7 @@ class BottomNavigation extends StatelessWidget {
       items: [
         _buildItem(context, TabItem.home),
         _buildItem(context, TabItem.discover),
-        _buildItem(context, TabItem.listing),
+        _buildItem(context, TabItem.wishlist),
         _buildItem(context, TabItem.cart),
         _buildItem(context, TabItem.settings),
       ],
