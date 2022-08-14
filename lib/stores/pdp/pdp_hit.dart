@@ -7,20 +7,16 @@ class PDPHit {
   final List<String> imgList;
   final String sku;
   final Map<FilterKey, String> filters;
-  // final String variant;
-  // final String style;
-  // final String size;
-  // final String color;
   final bool isEmpty;
+  final String description;
+  final String subtitle;
   const PDPHit({
     required this.title,
     required this.imgUrl,
     required this.filters,
-    // required this.color,
-    // required this.variant,
-    // required this.style,
-    // required this.size,
     required this.imgList,
+    required this.description,
+    required this.subtitle,
     required this.sku,
     this.isEmpty = false,
   });
@@ -30,6 +26,8 @@ class PDPHit {
         title: '',
         isEmpty: true,
         imgUrl: '',
+        description: '',
+        subtitle: '',
         filters: {
           FilterKey.color: '',
           FilterKey.size: '',
@@ -63,10 +61,24 @@ class PDPHit {
     return true;
   }
 
+  static List<String> algoliaAttributes = [
+    'sku',
+    'containerID',
+    'images',
+    'title',
+    'description',
+    'flags',
+    'attributes',
+    'variantData',
+    'subtitle',
+  ];
+
   factory PDPHit.fromAlgoliaHit(Map<String, dynamic> hit) {
     List<Map<String, dynamic>> imagesRaw = [...hit['images']['imageWeb']];
     return PDPHit(
         title: hit['title'],
+        description: hit['description'],
+        subtitle: hit['subtitle'],
         imgUrl: ImgTransform.generate(hit['images']['imageWeb'][0]),
         imgList: imagesRaw.map((e) => ImgTransform.generate(e)).toList(),
         filters: {

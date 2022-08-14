@@ -56,15 +56,7 @@ abstract class _PDP with Store {
 
     AlgoliaQuery query = algolia.instance.index('prod_lusini_de_DE_products');
 
-    query = query.setAttributesToRetrieve([
-      'sku',
-      'containerID',
-      'images',
-      'title',
-      'flags',
-      'attributes',
-      'variantData'
-    ]);
+    query = query.setAttributesToRetrieve(PDPHit.algoliaAttributes);
 
     // query = query.setFacets(['productNumber']);
     query = query.facetFilter('containerID:$containerID');

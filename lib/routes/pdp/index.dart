@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/pdp/animations.dart';
 import 'package:flutter_app/routes/pdp/buy_button.dart';
+import 'package:flutter_app/routes/pdp/filter_list.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/routes/pdp/sheet_box.dart';
 import 'package:flutter_app/routes/pdp/sheet_title.dart';
@@ -118,6 +119,7 @@ class _PDPPageState extends State<PDPPage> {
           children: const [
             SheetTitle(),
             BuyButton(),
+            FilterList(),
             SheetBox(),
             SheetBox(),
             SheetBox(),
