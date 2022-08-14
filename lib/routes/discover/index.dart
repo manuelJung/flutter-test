@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/routes/impression/index.dart';
 import 'package:flutter_app/stores/impression/impressions.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -42,7 +43,14 @@ class DiscoverRoute extends StatelessWidget {
                     return null;
                   }
                   var item = store.items[index];
-                  return Image.network(item.img);
+                  return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ImpressionPage()));
+                      },
+                      child: Image.network(item.img));
                 },
               ),
             );
