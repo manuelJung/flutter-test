@@ -71,6 +71,8 @@ abstract class _ProductList with Store {
   bool get canFetchNextPage => hits.length < 25;
 
   void fetch() async {
+    if (isFetching) return;
+    print('fetch product_list');
     Action(() {
       isFetching = true;
       fetchError = '';
@@ -124,8 +126,13 @@ abstract class _ProductList with Store {
       'subtitle',
     ]);
 
-    query = query.setPage(page);
-    query = query.setFacets([...filterDefinitions.map((def) => def.key)]);
+    if (this.query != '') {
+      query = query.query(this.query);
+    }
+
+    if (filterDefinitions.isNotEmpty) {
+      query = query.setFacets([...filterDefinitions.map((def) => def.key)]);
+    }
 
     for (var def in filterDefinitions) {
       for (String opt in (disjunctiveFilters[def.key]?.values ?? [])) {
@@ -133,6 +140,7 @@ abstract class _ProductList with Store {
       }
     }
 
+    query = query.setPage(page);
     return query;
   }
 }

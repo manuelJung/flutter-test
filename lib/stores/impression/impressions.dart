@@ -34,6 +34,7 @@ abstract class _ImpressionsStore with Store {
 
   _fetch() async {
     if (isFetching) return;
+    print('fetch impressions');
     Action(() {
       isFetching = true;
       fetchError = '';

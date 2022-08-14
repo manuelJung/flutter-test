@@ -34,12 +34,11 @@ class ProductList extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ProductWidget(store: store, hitIndex: i * 2 + 0),
-        (store.hits.length - 2) >= (i * 2)
-            ? ProductWidget(
-                store: store,
-                hitIndex: i * 2 + 1,
-              )
-            : const Expanded(child: Text(''))
+        const SizedBox(width: 10),
+        if ((store.hits.length - 2) >= (i * 2))
+          ProductWidget(store: store, hitIndex: i * 2 + 1)
+        else
+          const Expanded(child: Text(''))
       ],
     );
   }

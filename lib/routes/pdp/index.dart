@@ -123,12 +123,7 @@ class _PDPPageState extends State<PDPPage> {
             FilterList(),
             SizedBox(height: 40),
             BrandProducts(),
-            SheetBox(),
-            SheetBox(),
-            SheetBox(),
-            SheetBox(),
-            SheetBox(),
-            SheetBox(),
+            SizedBox(height: 200),
           ],
         )
       ]),
