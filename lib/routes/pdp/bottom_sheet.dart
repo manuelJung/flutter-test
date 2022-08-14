@@ -53,7 +53,7 @@ class CustomBottomSheet extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                             color: Colors.black26,
-                            blurRadius: 5,
+                            blurRadius: 18,
                             spreadRadius: spreadRadius,
                             offset: const Offset(0, 1))
                       ]),

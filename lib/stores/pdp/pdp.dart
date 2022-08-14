@@ -73,12 +73,46 @@ abstract class _PDP with Store {
     try {
       AlgoliaQuerySnapshot snap = await query.getObjects();
 
+      var _hits = [
+        for (var hit in snap.hits.map((hit) => hit.toMap()))
+          PDPHit.fromAlgoliaHit(hit)
+      ];
+
       Action(() {
         isFetching = false;
-        hits.addAll([
-          for (var hit in snap.hits.map((hit) => hit.toMap()))
-            PDPHit.fromAlgoliaHit(hit)
-        ]);
+        hits.addAll(_hits);
+        filters[FilterKey.color]!.options.addAll(_Filter.calcOptions(
+              hits,
+              FilterKey.color,
+              color: filters[FilterKey.color]!.value,
+              variant: filters[FilterKey.variant]!.value,
+              style: filters[FilterKey.style]!.value,
+              size: filters[FilterKey.size]!.value,
+            ));
+        filters[FilterKey.variant]!.options.addAll(_Filter.calcOptions(
+              hits,
+              FilterKey.variant,
+              color: filters[FilterKey.color]!.value,
+              variant: filters[FilterKey.variant]!.value,
+              style: filters[FilterKey.style]!.value,
+              size: filters[FilterKey.size]!.value,
+            ));
+        filters[FilterKey.size]!.options.addAll(_Filter.calcOptions(
+              hits,
+              FilterKey.size,
+              color: filters[FilterKey.color]!.value,
+              variant: filters[FilterKey.variant]!.value,
+              style: filters[FilterKey.style]!.value,
+              size: filters[FilterKey.size]!.value,
+            ));
+        filters[FilterKey.style]!.options.addAll(_Filter.calcOptions(
+              hits,
+              FilterKey.style,
+              color: filters[FilterKey.color]!.value,
+              variant: filters[FilterKey.variant]!.value,
+              style: filters[FilterKey.style]!.value,
+              size: filters[FilterKey.size]!.value,
+            ));
       })();
     } catch (e, stack) {
       print(e);
@@ -97,7 +131,7 @@ class FilterStore = _Filter with _$FilterStore;
 
 abstract class _Filter with Store {
   @observable
-  ObservableList<String> options = ObservableList();
+  ObservableList<FilterOption> options = ObservableList();
   @observable
   String value = '';
 
@@ -106,7 +140,41 @@ abstract class _Filter with Store {
 
   @action
   setValue(String value) {
-    assert(options.contains(value));
+    assert(options.where((opt) => opt.title == value).isNotEmpty);
     this.value = value;
   }
+
+  static List<FilterOption> calcOptions(
+    List<PDPHit> hits,
+    FilterKey key, {
+    required String color,
+    required String variant,
+    required String style,
+    required String size,
+  }) {
+    return [];
+    // List<PDPHit> selectableHits = hits
+    //     .where((hit) =>
+    //         hit.match(color: color, size: size, variant: variant, style: style))
+    //     .toList();
+
+    // Set<String> allOptions = hits.map((hit) => hit.filters[key]!).toSet();
+
+    // return allOptions
+    //     .map((opt) => FilterOption(
+    //           title: opt,
+    //           selectable: selectableHits
+    //               .where((hit) => hit.filters[key] == opt)
+    //               .isNotEmpty,
+    //         ))
+    //     .toList();
+  }
+}
+
+class FilterOption {
+  final String title;
+  final String? img;
+  final bool selectable;
+
+  FilterOption({required this.title, required this.selectable, this.img});
 }

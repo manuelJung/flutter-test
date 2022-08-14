@@ -57,6 +57,22 @@ mixin _$ImpressionsStore on _ImpressionsStore, Store {
     });
   }
 
+  late final _$fetchErrorAtom =
+      Atom(name: '_ImpressionsStore.fetchError', context: context);
+
+  @override
+  String get fetchError {
+    _$fetchErrorAtom.reportRead();
+    return super.fetchError;
+  }
+
+  @override
+  set fetchError(String value) {
+    _$fetchErrorAtom.reportWrite(value, super.fetchError, () {
+      super.fetchError = value;
+    });
+  }
+
   late final _$_ImpressionsStoreActionController =
       ActionController(name: '_ImpressionsStore', context: context);
 
@@ -76,7 +92,8 @@ mixin _$ImpressionsStore on _ImpressionsStore, Store {
     return '''
 items: ${items},
 page: ${page},
-isFetching: ${isFetching}
+isFetching: ${isFetching},
+fetchError: ${fetchError}
     ''';
   }
 }

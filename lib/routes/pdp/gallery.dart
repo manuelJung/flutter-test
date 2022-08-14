@@ -98,9 +98,19 @@ class Gallery extends StatelessWidget {
 
   Widget _loadingBuild(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Center(
-      child:
-          Image.network(fallbackImage, width: size.width, height: size.width),
-    );
+    var img = fallbackImage;
+
+    if (img.contains('c_fill')) {
+      return SizedBox(
+        width: size.width,
+        height: size.height,
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: Image.network(img),
+        ),
+      );
+    }
+
+    return Image.network(img, width: size.width, height: size.width);
   }
 }

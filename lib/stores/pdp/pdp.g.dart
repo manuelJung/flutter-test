@@ -77,13 +77,13 @@ mixin _$FilterStore on _Filter, Store {
   late final _$optionsAtom = Atom(name: '_Filter.options', context: context);
 
   @override
-  ObservableList<String> get options {
+  ObservableList<FilterOption> get options {
     _$optionsAtom.reportRead();
     return super.options;
   }
 
   @override
-  set options(ObservableList<String> value) {
+  set options(ObservableList<FilterOption> value) {
     _$optionsAtom.reportWrite(value, super.options, () {
       super.options = value;
     });

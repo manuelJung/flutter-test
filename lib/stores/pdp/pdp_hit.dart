@@ -1,3 +1,4 @@
+import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/utils/img_transform.dart';
 
 class PDPHit {
@@ -5,18 +6,20 @@ class PDPHit {
   final String imgUrl;
   final List<String> imgList;
   final String sku;
-  final String variant;
-  final String style;
-  final String size;
-  final String color;
+  final Map<FilterKey, String> filters;
+  // final String variant;
+  // final String style;
+  // final String size;
+  // final String color;
   final bool isEmpty;
   const PDPHit({
     required this.title,
     required this.imgUrl,
-    required this.color,
-    required this.variant,
-    required this.style,
-    required this.size,
+    required this.filters,
+    // required this.color,
+    // required this.variant,
+    // required this.style,
+    // required this.size,
     required this.imgList,
     required this.sku,
     this.isEmpty = false,
@@ -27,10 +30,12 @@ class PDPHit {
         title: '',
         isEmpty: true,
         imgUrl: '',
-        color: '',
-        variant: '',
-        style: '',
-        size: '',
+        filters: {
+          FilterKey.color: '',
+          FilterKey.size: '',
+          FilterKey.style: '',
+          FilterKey.variant: '',
+        },
         imgList: [],
         sku: '');
   }
@@ -41,12 +46,20 @@ class PDPHit {
     required String variant,
     required String style,
   }) {
-    if (this.color != '' && color != '' && this.color != color) return false;
-    if (this.size != '' && size != '' && this.size != size) return false;
-    if (this.variant != '' && variant != '' && this.variant != variant) {
+    if (filters[FilterKey.color] != '' &&
+        color != '' &&
+        filters[FilterKey.color] != color) return false;
+    if (filters[FilterKey.size] != '' &&
+        size != '' &&
+        filters[FilterKey.size] != size) return false;
+    if (filters[FilterKey.variant] != '' &&
+        variant != '' &&
+        filters[FilterKey.variant] != variant) {
       return false;
     }
-    if (this.style != '' && style != '' && this.style != style) return false;
+    if (filters[FilterKey.style] != '' &&
+        style != '' &&
+        filters[FilterKey.style] != style) return false;
     return true;
   }
 
@@ -56,10 +69,12 @@ class PDPHit {
         title: hit['title'],
         imgUrl: ImgTransform.generate(hit['images']['imageWeb'][0]),
         imgList: imagesRaw.map((e) => ImgTransform.generate(e)).toList(),
-        color: hit['variantData']['color']['label'] ?? '',
-        variant: hit['variantData']['variant']['label'] ?? '',
-        style: hit['variantData']['style']['label'] ?? '',
-        size: hit['variantData']['size']['label'] ?? '',
+        filters: {
+          FilterKey.color: hit['variantData']['color']['label'] ?? '',
+          FilterKey.variant: hit['variantData']['variant']['label'] ?? '',
+          FilterKey.style: hit['variantData']['style']['label'] ?? '',
+          FilterKey.size: hit['variantData']['size']['label'] ?? '',
+        },
         sku: hit['sku']);
   }
 }
