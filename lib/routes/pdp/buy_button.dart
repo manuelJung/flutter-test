@@ -13,7 +13,12 @@ class BuyButton extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         ),
         ElevatedButton(
-          onPressed: (() {}),
+          onPressed: (() => Scaffold.of(context).showBottomSheet(
+                (context) => Container(
+                  color: Colors.amber,
+                  height: 400,
+                ),
+              )),
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(15),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,

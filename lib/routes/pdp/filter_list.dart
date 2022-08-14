@@ -14,7 +14,12 @@ class FilterList extends StatelessWidget {
         children: [
           _delimiter(context),
           InkWell(
-            onTap: () {},
+            onTap: () => Scaffold.of(context).showBottomSheet(
+              (context) => Container(
+                color: Colors.amber,
+                height: 400,
+              ),
+            ),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
@@ -26,15 +31,23 @@ class FilterList extends StatelessWidget {
                 ]),
           ),
           _delimiter(context),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Größe',
-                  style: TextStyle(fontSize: 18),
-                ),
-                Icon(Icons.chevron_right_rounded),
-              ]),
+          InkWell(
+            onTap: () => Scaffold.of(context).showBottomSheet(
+              (context) => Container(
+                color: Colors.amber,
+                height: 400,
+              ),
+            ),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    'Größe',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Icon(Icons.chevron_right_rounded),
+                ]),
+          ),
           _delimiter(context),
           const SizedBox(height: 20),
           Observer(builder: (context) {
