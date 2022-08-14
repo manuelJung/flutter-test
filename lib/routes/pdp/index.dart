@@ -96,6 +96,7 @@ class _PDPPageState extends State<PDPPage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider(create: (context) => widget.hit),
         Provider(
             create: (context) => PDPStore(
                 containerID: widget.hit.productNumber, sku: widget.hit.sku)),
@@ -114,15 +115,15 @@ class _PDPPageState extends State<PDPPage> {
           draggablePercent: widget.draggablePercent,
           headerPercent: widget.headerPercent,
           maxDragablePercent: widget.maxDragablePercent,
-          children: [
-            SheetTitle(listingHit: widget.hit),
-            const BuyButton(),
-            const SheetBox(),
-            const SheetBox(),
-            const SheetBox(),
-            const SheetBox(),
-            const SheetBox(),
-            const SheetBox(),
+          children: const [
+            SheetTitle(),
+            BuyButton(),
+            SheetBox(),
+            SheetBox(),
+            SheetBox(),
+            SheetBox(),
+            SheetBox(),
+            SheetBox(),
           ],
         )
       ]),

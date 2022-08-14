@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 import 'animations.dart';
 
 class SheetTitle extends StatelessWidget {
-  final ListingHit listingHit;
-  const SheetTitle({super.key, required this.listingHit});
+  const SheetTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var listingHit = context.read<ListingHit>();
     var scrollPos = context.read<BottomSheetAnimation>();
     return Container(
       decoration: const BoxDecoration(
