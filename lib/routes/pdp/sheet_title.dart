@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ class SheetTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var listingHit = context.read<ListingHit>();
+    var store = context.read<PDPStore>();
     var scrollPos = context.read<BottomSheetAnimation>();
     return Container(
       decoration: const BoxDecoration(
@@ -50,7 +52,10 @@ class SheetTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 5.0),
-                Text(listingHit.subtitle.trim(),
+                Text(
+                    store.isFetching
+                        ? listingHit.subtitle.trim()
+                        : store.displayVariant.subtitle.trim(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: const TextStyle(color: Colors.grey)),

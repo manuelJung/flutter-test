@@ -40,7 +40,7 @@ class FilterList extends StatelessWidget {
           Observer(builder: (context) {
             final store = context.read<PDPStore>();
             return Text(
-              store.displayVariant.description,
+              store.isFetching ? '' : store.displayVariant.description,
               maxLines: 6,
               overflow: TextOverflow.ellipsis,
             );
