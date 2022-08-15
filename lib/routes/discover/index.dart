@@ -48,7 +48,10 @@ class DiscoverRoute extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ImpressionPage()));
+                                builder: (context) => ImpressionPage(
+                                      store: store,
+                                      index: index,
+                                    )));
                       },
                       child: Image.network(item.img));
                 },
