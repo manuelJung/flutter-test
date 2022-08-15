@@ -5,8 +5,8 @@ import 'package:flutter_app/widgets/product_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-class BrandProducts extends StatelessWidget {
-  const BrandProducts({super.key});
+class ListingTeaser extends StatelessWidget {
+  const ListingTeaser({super.key});
 
   @override
   Widget build(BuildContext context) {

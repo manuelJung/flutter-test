@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/pdp/animations.dart';
-import 'package:flutter_app/routes/pdp/brand_products.dart';
 import 'package:flutter_app/routes/pdp/buy_button.dart';
 import 'package:flutter_app/routes/pdp/filter_list.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
-import 'package:flutter_app/routes/pdp/sheet_box.dart';
 import 'package:flutter_app/routes/pdp/sheet_title.dart';
 import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:flutter_app/stores/ui/ui.dart';
+import 'package:flutter_app/widgets/listing_teaser.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -122,7 +121,7 @@ class _PDPPageState extends State<PDPPage> {
             BuyButton(),
             FilterList(),
             SizedBox(height: 40),
-            BrandProducts(),
+            ListingTeaser(),
             SizedBox(height: 200),
           ],
         )

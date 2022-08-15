@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_app/stores/impression/impressions.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
+import 'package:flutter_app/widgets/listing_teaser.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
@@ -97,6 +98,8 @@ class ImpressionPage extends StatelessWidget {
                   childCount: (store.hits.length / 2).floor(),
                 ));
               }),
+              const SliverToBoxAdapter(child: SizedBox(height: 40)),
+              const SliverToBoxAdapter(child: ListingTeaser()),
               const SliverToBoxAdapter(child: SizedBox(height: 150)),
             ]),
           );
