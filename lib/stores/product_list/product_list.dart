@@ -26,7 +26,10 @@ abstract class _ProductList with Store {
   Map<String, DisjunctiveFilterStore> disjunctiveFilters = {};
   List<FilterDefinition> filterDefinitions = [];
 
+  InitialFilters initialFilters = const InitialFilters();
+
   _ProductList(InitialFilters initFilters, List<FilterDefinition> defs) {
+    initialFilters = initFilters;
     filterDefinitions = defs;
     for (var def in defs) {
       if (def.type == FilterType.disjunctive) {
@@ -126,6 +129,15 @@ abstract class _ProductList with Store {
       'subtitle',
     ]);
 
+    if (initialFilters.skus.isNotEmpty) {
+      List<String> filters = [];
+      for (var sku in initialFilters.skus) {
+        filters.add('sku:$sku');
+      }
+      query = query.facetFilter(filters);
+      return query;
+    }
+
     if (this.query != '') {
       query = query.query(this.query);
     }
@@ -148,7 +160,9 @@ abstract class _ProductList with Store {
 class InitialFilters {
   final String query;
   final String category;
-  const InitialFilters({this.query = '', this.category = ''});
+  final List<String> skus;
+  const InitialFilters(
+      {this.query = '', this.category = '', this.skus = const []});
 }
 
 enum FilterType { disjunctive, numeric }

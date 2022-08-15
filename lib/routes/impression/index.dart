@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_app/stores/impression/impressions.dart';
+import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/math.dart';
+import '../../widgets/product_widget.dart';
 
 class ImpressionPage extends StatelessWidget {
   final ImpressionsStore store;
@@ -16,8 +18,14 @@ class ImpressionPage extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Container(
       color: Colors.white,
-      child: Provider(
-        create: (_) => AnimatedValue(0),
+      child: MultiProvider(
+        providers: [
+          Provider(create: (_) => AnimatedValue(0)),
+          Provider(
+            create: (_) => ProductListStore(
+                InitialFilters(skus: store.items[index].skus), []),
+          )
+        ],
         child: Builder(builder: (context) {
           final scrollPos = context.read<AnimatedValue>();
           return NotificationListener<ScrollNotification>(
@@ -79,21 +87,37 @@ class ImpressionPage extends StatelessWidget {
                       style: TextStyle(fontSize: 30),
                     )),
               ),
-              SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                ((context, index) {
-                  return Container(
-                    color: Colors.grey,
-                    height: 200,
-                    margin: const EdgeInsets.only(bottom: 10),
-                  );
-                }),
-                childCount: 10,
-              ))
+              Observer(builder: (context) {
+                final store = context.read<ProductListStore>();
+                return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                  ((context, index) {
+                    return _createProductWidgetRow(context, index);
+                  }),
+                  childCount: (store.hits.length / 2).floor(),
+                ));
+              }),
+              const SliverToBoxAdapter(child: SizedBox(height: 150)),
             ]),
           );
         }),
       ),
+    );
+  }
+
+  Widget _createProductWidgetRow(BuildContext context, int index) {
+    final store = context.read<ProductListStore>();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        if (store.hits.length > index)
+          ProductWidget(store: store, hitIndex: index),
+        const SizedBox(width: 10),
+        if (store.hits.length > index + 1)
+          ProductWidget(store: store, hitIndex: index + 1)
+        else
+          const Expanded(child: Text('')),
+      ],
     );
   }
 }
