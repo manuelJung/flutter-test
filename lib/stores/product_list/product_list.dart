@@ -147,9 +147,11 @@ abstract class _ProductList with Store {
     }
 
     for (var def in filterDefinitions) {
+      List<String> filters = [];
       for (String opt in (disjunctiveFilters[def.key]?.values ?? [])) {
-        query = query.facetFilter('${def.key}:$opt');
+        filters.add('${def.key}:$opt');
       }
+      query = query.facetFilter(filters);
     }
 
     query = query.setPage(page);
