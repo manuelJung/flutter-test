@@ -36,26 +36,20 @@ class DiscoverRoute extends StatelessWidget {
                   QuiltedGridTile(2, 2),
                 ],
               ),
-              childrenDelegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  if (index >= store.items.length) {
-                    store.extend();
-                    return null;
-                  }
-                  var item = store.items[index];
-                  return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ImpressionPage(
-                                      store: store,
-                                      index: index,
-                                    )));
-                      },
-                      child: Image.network(item.img));
-                },
-              ),
+              childrenDelegate: SliverChildBuilderDelegate((context, index) {
+                var item = store.items[index];
+                return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImpressionPage(
+                                    store: store,
+                                    index: index,
+                                  )));
+                    },
+                    child: Image.network(item.img));
+              }, childCount: store.items.length),
             );
             // return ListView.builder(
             //     itemCount: store.items.length,
