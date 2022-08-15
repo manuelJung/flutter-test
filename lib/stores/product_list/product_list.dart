@@ -71,7 +71,7 @@ abstract class _ProductList with Store {
   }
 
   @computed
-  bool get canFetchNextPage => hits.length < 25;
+  bool get canFetchNextPage => hits.length < 200;
 
   void fetch() async {
     if (isFetching) return;
