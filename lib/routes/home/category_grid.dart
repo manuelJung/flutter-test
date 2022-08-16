@@ -11,11 +11,11 @@ class CategoryGrid extends StatelessWidget {
     const itemHeight = 60;
     final ratio = (size.width / 2) / itemHeight;
     return SliverPadding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(left: 10, right: 10),
       sliver: SliverGrid.count(
         crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisSpacing: 3,
+        mainAxisSpacing: 3,
         childAspectRatio: ratio,
         children: [
           _renderItem(
