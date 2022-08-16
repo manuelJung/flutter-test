@@ -56,7 +56,7 @@ class _GalleryState extends State<Gallery> {
             return Positioned(
                 left: 10,
                 top: top,
-                width: 20,
+                width: 15,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -68,12 +68,12 @@ class _GalleryState extends State<Gallery> {
                         i < store.displayVariant.imgList.length;
                         i++)
                       Container(
-                        width: 10,
-                        height: 10,
+                        width: 5,
+                        height: 5,
                         margin: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
+                                const BorderRadius.all(Radius.circular(5)),
                             color: i == index
                                 ? Colors.grey[800]
                                 : Colors.grey[100]),
