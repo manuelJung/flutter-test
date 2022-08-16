@@ -7,7 +7,7 @@ const Map<TabItem, String> tabName = {
   TabItem.discover: 'Entdecken',
   TabItem.wishlist: 'wishlist',
   TabItem.cart: 'Cart',
-  TabItem.settings: 'Settings',
+  TabItem.settings: 'Account',
 };
 
 const Map<TabItem, String> routePaths = {
@@ -23,5 +23,5 @@ const Map<TabItem, IconData> routeIcons = {
   TabItem.discover: Icons.fireplace_rounded,
   TabItem.wishlist: Icons.heart_broken,
   TabItem.cart: Icons.shopping_cart,
-  TabItem.settings: Icons.settings,
+  TabItem.settings: Icons.accessible_rounded,
 };
