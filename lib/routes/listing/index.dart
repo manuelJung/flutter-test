@@ -6,7 +6,12 @@ import './product_list.dart';
 
 class ListingRoute extends StatelessWidget {
   final InitialFilters initialFilters;
-  const ListingRoute({super.key, required this.initialFilters});
+  final String title;
+  const ListingRoute({
+    super.key,
+    required this.initialFilters,
+    this.title = 'Kategorien',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class ListingRoute extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text('Listing'),
+          title: Text(title),
         ),
         floatingActionButton: Builder(builder: (context) {
           return FloatingActionButton(

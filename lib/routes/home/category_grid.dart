@@ -26,7 +26,8 @@ class CategoryGrid extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const ListingRoute(
-                        initialFilters: InitialFilters(category: 'Gläser'))),
+                        title: 'Gläßer',
+                        initialFilters: InitialFilters(query: 'Gläser'))),
               );
             },
           ),
@@ -38,7 +39,8 @@ class CategoryGrid extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const ListingRoute(
-                        initialFilters: InitialFilters(category: 'Besteck'))),
+                        title: 'Besteck',
+                        initialFilters: InitialFilters(query: 'Besteck'))),
               );
             },
           ),
@@ -50,7 +52,8 @@ class CategoryGrid extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const ListingRoute(
-                        initialFilters: InitialFilters(category: 'Möbel'))),
+                        title: 'Möbel',
+                        initialFilters: InitialFilters(query: 'Möbel'))),
               );
             },
           ),
@@ -62,8 +65,9 @@ class CategoryGrid extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const ListingRoute(
+                        title: 'Berufsbekleidung',
                         initialFilters:
-                            InitialFilters(category: 'Berufsbekleidung'))),
+                            InitialFilters(query: 'Berufsbekleidung'))),
               );
             },
           ),
@@ -75,7 +79,8 @@ class CategoryGrid extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const ListingRoute(
-                        initialFilters: InitialFilters(category: 'Buffet'))),
+                        title: 'Buffet',
+                        initialFilters: InitialFilters(query: 'Buffet'))),
               );
             },
           ),
@@ -87,7 +92,8 @@ class CategoryGrid extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const ListingRoute(
-                        initialFilters: InitialFilters(category: 'Take-Away'))),
+                        title: 'Take-Away',
+                        initialFilters: InitialFilters(query: 'Take-Away'))),
               );
             },
           ),
@@ -98,8 +104,8 @@ class CategoryGrid extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        const ListingRoute(initialFilters: InitialFilters())),
+                    builder: (context) => const ListingRoute(
+                        title: 'Sale', initialFilters: InitialFilters())),
               );
             },
           ),

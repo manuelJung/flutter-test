@@ -84,6 +84,8 @@ abstract class _ProductList with Store {
     try {
       AlgoliaQuery query = _createQuery();
       AlgoliaQuerySnapshot snap = await query.getObjects();
+      print('---------------------');
+      print(snap);
 
       Action(() {
         isFetching = false;
@@ -137,6 +139,10 @@ abstract class _ProductList with Store {
       query = query.facetFilter(filters);
       return query;
     }
+
+    // if (initialFilters.category != '') {
+    //   query = query.facetFilter('categories.lv0:${initialFilters.category}');
+    // }
 
     if (this.query != '') {
       query = query.query(this.query);
