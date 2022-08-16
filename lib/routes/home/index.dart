@@ -11,8 +11,11 @@ class HomeRoute extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
-            title: Text('Lusini',
-                style: TextStyle(color: Color.fromRGBO(214, 164, 68, 1))),
+            title: Text('LUSINI',
+                style: TextStyle(
+                    letterSpacing: 4,
+                    fontSize: 32,
+                    color: Color.fromRGBO(214, 164, 68, 1))),
             pinned: true,
             backgroundColor: Colors.white,
           ),

@@ -34,6 +34,7 @@ class ListingRoute extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(title),
+          backgroundColor: Colors.white,
         ),
         floatingActionButton: Builder(builder: (context) {
           return FloatingActionButton(
