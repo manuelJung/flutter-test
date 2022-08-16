@@ -82,10 +82,10 @@ class ImpressionPage extends StatelessWidget {
               ),
               const SliverToBoxAdapter(
                 child: Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.only(left: 10, top: 30, bottom: 10),
                     child: Text(
                       'Dargestellte Artikel:',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 22),
                     )),
               ),
               Observer(builder: (context) {
