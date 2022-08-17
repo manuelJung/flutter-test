@@ -11,14 +11,16 @@ class HomeAppBar extends StatelessWidget {
     return Observer(builder: (context) {
       final scrollPos = context.read<AnimatedValue>();
       return SliverAppBar(
-        title: Text('LUSINI',
-            style: TextStyle(
-                letterSpacing: 4,
-                fontSize: scrollPos.interpolate(
-                  xs: [0, 30, 31],
-                  ys: [32, 0, 0],
-                ),
-                color: const Color.fromRGBO(214, 164, 68, 1))),
+        title: Center(
+          child: Text('LUSINI',
+              style: TextStyle(
+                  letterSpacing: 4,
+                  fontSize: scrollPos.interpolate(
+                    xs: [0, 30, 31],
+                    ys: [32, 0, 0],
+                  ),
+                  color: const Color.fromRGBO(214, 164, 68, 1))),
+        ),
         pinned: true,
         expandedHeight: 130,
         collapsedHeight: 70,
