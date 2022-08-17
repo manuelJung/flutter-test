@@ -19,7 +19,9 @@ class CustomBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var scrollPos = context.read<BottomSheetAnimation>();
+    final scrollPos = context.read<BottomSheetAnimation>();
+    // final controller = context.read<DraggableScrollableController>();
+
     return NotificationListener<DraggableScrollableNotification>(
       onNotification: (notification) {
         scrollPos.setValue(Math.interpolate(

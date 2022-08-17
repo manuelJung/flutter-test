@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/pdp/animations.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
+import 'package:flutter_app/routes/pdp/sliver_title.dart';
 import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
@@ -81,6 +82,11 @@ class PDPPage extends StatefulWidget {
   State<PDPPage> createState() => _PDPPageState();
 }
 
+class Holder {
+  final DraggableScrollableController controller;
+  const Holder(this.controller);
+}
+
 class _PDPPageState extends State<PDPPage> {
   @override
   Widget build(BuildContext context) {
@@ -88,11 +94,14 @@ class _PDPPageState extends State<PDPPage> {
       providers: [
         Provider(create: (context) => widget.hit),
         Provider(
-            create: (context) => PDPStore(
-                containerID: widget.hit.productNumber, sku: widget.hit.sku)),
-        Provider(create: (context) => BottomSheetAnimation()),
+          create: (_) => PDPStore(
+            containerID: widget.hit.productNumber,
+            sku: widget.hit.sku,
+          ),
+        ),
+        Provider(create: (_) => BottomSheetAnimation()),
       ],
-      child: Stack(children: [
+      builder: (context, child) => Stack(children: [
         SizedBox(
           height: widget.size.height - widget.bottomSheetHeight,
           child: Gallery(
@@ -103,7 +112,11 @@ class _PDPPageState extends State<PDPPage> {
         CustomBottomSheet(
           draggablePercent: widget.draggablePercent,
           maxDragablePercent: widget.maxDragablePercent,
-          children: const [],
+          children: [
+            const SliverTitle(),
+            SliverToBoxAdapter(child: Container(height: 500)),
+            SliverToBoxAdapter(child: Container(height: 500)),
+          ],
         )
       ]),
     );
