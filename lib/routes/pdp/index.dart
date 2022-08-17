@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/pdp/animations.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
+import 'package:flutter_app/routes/pdp/highlight_box.dart';
 import 'package:flutter_app/routes/pdp/sliver_title.dart';
 import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/listing_hit.dart';
@@ -114,6 +115,7 @@ class _PDPPageState extends State<PDPPage> {
           maxDragablePercent: widget.maxDragablePercent,
           children: [
             const SliverTitle(),
+            const HighlightBox(),
             SliverToBoxAdapter(child: Container(height: 500)),
             SliverToBoxAdapter(child: Container(height: 500)),
           ],
