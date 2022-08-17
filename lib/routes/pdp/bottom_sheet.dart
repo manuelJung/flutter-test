@@ -9,13 +9,11 @@ class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({
     Key? key,
     required this.draggablePercent,
-    required this.headerPercent,
     required this.maxDragablePercent,
     required this.children,
   }) : super(key: key);
 
   final double draggablePercent;
-  final double headerPercent;
   final double maxDragablePercent;
   final List<Widget> children;
 
@@ -25,18 +23,16 @@ class CustomBottomSheet extends StatelessWidget {
     return NotificationListener<DraggableScrollableNotification>(
       onNotification: (notification) {
         scrollPos.setValue(Math.interpolate(
-            x: notification.extent,
-            xs: [draggablePercent, 1 - headerPercent],
-            ys: [0, 1]));
+            x: notification.extent, xs: [draggablePercent, 1], ys: [0, 1]));
 
         return true;
       },
       child: DraggableScrollableSheet(
           initialChildSize: draggablePercent,
-          maxChildSize: maxDragablePercent - headerPercent,
+          maxChildSize: maxDragablePercent,
           minChildSize: draggablePercent,
           snap: true,
-          snapSizes: [draggablePercent, maxDragablePercent - headerPercent],
+          snapSizes: [draggablePercent, maxDragablePercent],
           builder: (BuildContext context, ScrollController scrollController) {
             return Observer(builder: (context) {
               double rounding =
@@ -60,10 +56,10 @@ class CustomBottomSheet extends StatelessWidget {
                   child: MediaQuery.removePadding(
                     context: context,
                     removeTop: true,
-                    child: ListView(
+                    child: CustomScrollView(
                       controller: scrollController,
                       physics: const ClampingScrollPhysics(),
-                      children: children,
+                      slivers: children,
                     ),
                   ));
             });
