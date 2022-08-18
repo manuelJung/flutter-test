@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes/pdp/animations.dart';
+import 'package:flutter_app/routes/pdp/content_box.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/routes/pdp/highlight_box.dart';
 import 'package:flutter_app/routes/pdp/sliver_title.dart';
@@ -116,6 +117,7 @@ class _PDPPageState extends State<PDPPage> {
           children: [
             const SliverTitle(),
             const HighlightBox(),
+            const ContentBox(),
             SliverToBoxAdapter(child: Container(height: 500)),
             SliverToBoxAdapter(child: Container(height: 500)),
           ],
