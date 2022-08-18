@@ -4,6 +4,7 @@ import 'package:flutter_app/routes/pdp/content_box.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/routes/pdp/highlight_box.dart';
 import 'package:flutter_app/routes/pdp/sliver_title.dart';
+import 'package:flutter_app/sliver/product_list.dart';
 import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
@@ -118,6 +119,14 @@ class _PDPPageState extends State<PDPPage> {
             const SliverTitle(),
             const HighlightBox(),
             const ContentBox(),
+            Provider(
+              create: (_) =>
+                  ProductListStore(const InitialFilters(query: 'Vega'), []),
+              child: const SliverProductList(
+                numHits: 4,
+                startIndex: 0,
+              ),
+            ),
             SliverToBoxAdapter(child: Container(height: 500)),
             SliverToBoxAdapter(child: Container(height: 500)),
           ],

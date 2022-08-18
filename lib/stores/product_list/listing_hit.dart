@@ -14,11 +14,15 @@ class ListingHit {
       required this.productNumber});
 
   factory ListingHit.fromAlgolia(Map<String, dynamic> hit) {
+    dynamic image = '';
+    if (hit['images']['imageWeb'].isNotEmpty) {
+      image = hit['images']['imageWeb'][0];
+    }
     return ListingHit(
         title: hit['title'],
         sku: hit['sku'],
         subtitle: hit['subtitle'],
         productNumber: hit['containerID'],
-        imgUrl: ImgTransform.generate(hit['images']['imageWeb'][0]));
+        imgUrl: image == '' ? '' : ImgTransform.generate(image));
   }
 }

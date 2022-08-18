@@ -84,8 +84,6 @@ abstract class _ProductList with Store {
     try {
       AlgoliaQuery query = _createQuery();
       AlgoliaQuerySnapshot snap = await query.getObjects();
-      print('---------------------');
-      print(snap);
 
       Action(() {
         isFetching = false;
