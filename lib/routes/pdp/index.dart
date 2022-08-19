@@ -9,6 +9,7 @@ import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:flutter_app/stores/ui/ui.dart';
+import 'package:flutter_app/widgets/listing_teaser.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -115,20 +116,12 @@ class _PDPPageState extends State<PDPPage> {
         CustomBottomSheet(
           draggablePercent: widget.draggablePercent,
           maxDragablePercent: widget.maxDragablePercent,
-          children: [
-            const SliverTitle(),
-            const HighlightBox(),
-            const ContentBox(),
-            Provider(
-              create: (_) =>
-                  ProductListStore(const InitialFilters(query: 'Vega'), []),
-              child: const SliverProductList(
-                numHits: 4,
-                startIndex: 0,
-              ),
-            ),
-            SliverToBoxAdapter(child: Container(height: 500)),
-            SliverToBoxAdapter(child: Container(height: 500)),
+          children: const [
+            SliverTitle(),
+            HighlightBox(),
+            ContentBox(),
+            SliverToBoxAdapter(child: SizedBox(height: 50)),
+            SliverToBoxAdapter(child: ListingTeaser()),
           ],
         )
       ]),
