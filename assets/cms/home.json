@@ -1,0 +1,20 @@
+[
+  {
+    "id": "home",
+    "categoryLabel": "Kategorien",
+    "categories": [
+      {
+        "label": "Gläßer",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/f_auto/q_auto/v1615384580/demo-content/Vega_Logo_Logo_Wortmarke_neg_500x500px_rgb.png",
+        "to": {
+          "id": "123",
+          "content_type": "home"
+        }
+      }
+    ],
+    "brandLabel": "Marken",
+    "brands": [],
+    "highlightsLabel": "Beliebte Kategorien",
+    "highlights": []
+  }
+]
