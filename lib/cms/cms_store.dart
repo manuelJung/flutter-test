@@ -13,8 +13,10 @@ part 'cms_store.g.dart';
 class CMSStore = _CMSStore with _$CMSStore;
 
 abstract class _CMSStore with Store {
-  Map<String, HomePage> dataHome = {};
-  Map<String, CategoryListingPage> categoryListing = {};
+  @observable
+  ObservableMap<String, HomePage> dataHome = ObservableMap();
+  @observable
+  ObservableMap<String, CategoryListingPage> categoryListing = ObservableMap();
 
   _CMSStore() {
     _load('home').then((map) {
@@ -31,18 +33,19 @@ abstract class _CMSStore with Store {
     return map;
   }
 
-  Future<HomePage> getHomePage(String id) async {
+  HomePage getHomePage(String id) {
     return dataHome[id]!;
   }
 
-  Future<HomePage> getCategoryListingPage(String id) async {
-    return dataHome[id]!;
+  CategoryListingPage getCategoryListingPage(String id) {
+    return categoryListing[id]!;
   }
 
   Future<void> navigate(BuildContext context, CMSLink link) async {
     if (link.type == CMSPageType.home) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomeRoute()));
+      var cms = getHomePage(link.id);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => HomeRoute(cms: cms)));
     }
     if (link.type == CMSPageType.categoryListing) {
       throw 'categoryListing link not implemented';

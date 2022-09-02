@@ -6,8 +6,10 @@ class HomePage {
   final List<HomePageCategory> categories;
   final String brandLabel;
   final List<HomePageTeaser> brands;
-  final String highlightsLabel;
-  final List<HomePageTeaser> highlights;
+  final String imgGrid1Label;
+  final List<HomePageTeaser> imgGrid1;
+  final String imgGrid2Label;
+  final List<HomePageTeaser> imgGrid2;
 
   HomePage({
     required this.id,
@@ -15,8 +17,10 @@ class HomePage {
     required this.categories,
     required this.brandLabel,
     required this.brands,
-    required this.highlightsLabel,
-    required this.highlights,
+    required this.imgGrid1Label,
+    required this.imgGrid1,
+    required this.imgGrid2Label,
+    required this.imgGrid2,
   });
 
   factory HomePage.fromJSON(dynamic map) {
@@ -26,8 +30,8 @@ class HomePage {
       categories: [
         for (var row in map['categories'])
           HomePageCategory(
-            label: row['imgUrl'],
-            imgUrl: row['label'],
+            label: row['label'],
+            imgUrl: row['imgUrl'],
             to: CMSLink.fromMap(row['to']),
           )
       ],
@@ -35,17 +39,26 @@ class HomePage {
       brands: [
         for (var row in map['brands'])
           HomePageTeaser(
-            label: row['imgUrl'],
-            imgUrl: row['label'],
+            label: row['label'],
+            imgUrl: row['imgUrl'],
             to: CMSLink.fromMap(row['to']),
           )
       ],
-      highlightsLabel: map['highlightsLabel'],
-      highlights: [
-        for (var row in map['brands'])
+      imgGrid1Label: map['imgGrid1Label'],
+      imgGrid1: [
+        for (var row in map['imgGrid1'])
           HomePageTeaser(
-            label: row['imgUrl'],
-            imgUrl: row['label'],
+            label: row['label'],
+            imgUrl: row['imgUrl'],
+            to: CMSLink.fromMap(row['to']),
+          )
+      ],
+      imgGrid2Label: map['imgGrid2Label'],
+      imgGrid2: [
+        for (var row in map['imgGrid2'])
+          HomePageTeaser(
+            label: row['label'],
+            imgUrl: row['imgUrl'],
             to: CMSLink.fromMap(row['to']),
           )
       ],

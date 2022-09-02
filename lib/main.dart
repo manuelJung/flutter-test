@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter_app/cms/cms_store.dart';
+import 'package:flutter_app/cms/cms_store.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'navigation/app.dart';
 
 void main() async {
@@ -9,9 +11,6 @@ void main() async {
     statusBarColor: Colors.transparent, // status bar color
   ));
   runApp(const MyApp());
-  // var store = CMSStore();
-  // await Future.delayed(Duration(milliseconds: 300));
-  // print(store.dataHome);
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +23,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: const App(),
+      home: Provider(
+          create: (_) => CMSStore(),
+          child: Observer(builder: (context) {
+            var store = context.read<CMSStore>();
+
+            if (store.dataHome.containsKey('home')) {
+              return const App();
+            }
+
+            return const Center(child: Text('loading...'));
+          })),
     );
   }
 }

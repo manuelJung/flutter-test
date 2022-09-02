@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/cms/cms_store.dart';
 import 'package:flutter_app/routes/cart/index.dart';
 import 'package:flutter_app/routes/discover/index.dart';
 import 'package:flutter_app/routes/settings/index.dart';
 import 'package:flutter_app/routes/wishlist/index.dart';
 import 'package:flutter_app/stores/ui/ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import './bottom_navigation.dart';
 import './tab_item.dart';
 import '../routes/home/index.dart';
@@ -80,7 +82,8 @@ class _AppState extends State<App> {
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
-      routePaths[TabItem.home]!: (context) => const HomeRoute(),
+      routePaths[TabItem.home]!: (context) =>
+          HomeRoute(cms: context.read<CMSStore>().getHomePage('home')),
       routePaths[TabItem.discover]!: (context) => const DiscoverRoute(),
       routePaths[TabItem.wishlist]!: (context) => const WishlistRoute(),
       routePaths[TabItem.cart]!: (context) => const CartRoute(),
