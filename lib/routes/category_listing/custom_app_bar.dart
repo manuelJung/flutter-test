@@ -8,6 +8,8 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       title: Text(title),
+      pinned: true,
+      backgroundColor: Colors.white,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/cms/category_listing_page.dart';
 import 'package:flutter_app/routes/category_listing/custom_app_bar.dart';
+import 'package:flutter_app/routes/category_listing/product_grid.dart';
 import 'package:flutter_app/routes/listing/filter_list/index.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,29 @@ class CategoryListingRoute extends StatelessWidget {
       cms: cms,
       slivers: [
         CustomAppBar(title: cms.title),
+        const ProductGrid(startIndex: 0, numHits: 4),
+        SliverToBoxAdapter(
+          child: Container(
+            margin: const EdgeInsets.only(top: 50, bottom: 50),
+            color: Colors.amber[200],
+            height: 200,
+            child: const Center(
+              child: Text('Intersticial 1'),
+            ),
+          ),
+        ),
+        const ProductGrid(startIndex: 4, numHits: 6),
+        SliverToBoxAdapter(
+          child: Container(
+            margin: const EdgeInsets.only(top: 50, bottom: 50),
+            color: Colors.amber[100],
+            height: 200,
+            child: const Center(
+              child: Text('Intersticial 2'),
+            ),
+          ),
+        ),
+        const ProductGrid(startIndex: 10),
       ],
     );
   }
@@ -47,6 +71,7 @@ class CategoryListingRouteWrapper extends StatelessWidget {
             type: FilterType.disjunctive),
       ]),
       child: Scaffold(
+        backgroundColor: Colors.white,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(
