@@ -5,16 +5,146 @@
     "categories": [
       {
         "label": "Gläßer",
-        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/f_auto/q_auto/v1615384580/demo-content/Vega_Logo_Logo_Wortmarke_neg_500x500px_rgb.png",
+        "imgUrl": "assets/home_glaeser.png",
         "to": {
-          "id": "123",
-          "content_type": "home"
+          "id": "categoryListing-gläßer",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Besteck",
+        "imgUrl": "assets/home_besteck.png",
+        "to": {
+          "id": "categoryListing-besteck",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Möbel",
+        "imgUrl": "assets/home_moebel.png",
+        "to": {
+          "id": "categoryListing-moebel",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Kleidung",
+        "imgUrl": "assets/home_kleidung.png",
+        "to": {
+          "id": "categoryListing-kleidung",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Buffet",
+        "imgUrl": "assets/home_besteck.png",
+        "to": {
+          "id": "categoryListing-buffet",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Take-Away",
+        "imgUrl": "assets/home_take_away.png",
+        "to": {
+          "id": "categoryListing-take-away",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Sale",
+        "imgUrl": "assets/home_sale.png",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
         }
       }
     ],
     "brandLabel": "Marken",
-    "brands": [],
+    "brands": [
+      {
+        "label": "",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/f_auto/q_auto/v1615384580/demo-content/Vega_Logo_Logo_Wortmarke_neg_500x500px_rgb.png",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/f_auto/q_auto/v1615384592/demo-content/ErwinM_Logo_WortBildmarke_neg_500x500px_rgb.png",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/f_auto/q_auto/v1615384598/demo-content/Jobeline_Logo_WortBildmarke_neg_500x500px_rgb.png",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/f_auto/q_auto/v1631189692/demo-content/pulsiva_Logo_WortBildmarke_CoolgrayC5_RGB.jpg",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      }
+    ],
     "highlightsLabel": "Beliebte Kategorien",
-    "highlights": []
+    "highlights": [
+      {
+        "label": "Outdoor",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/w_450,f_auto,dpr_2,q_80/v1658223175/cms/static-block/lusini-banner-hero-cocktails-content-desktop.jpg",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Gastronomie",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/fetch/w_450,f_auto,dpr_2/https%3A%2F%2Fres.cloudinary.com%2Flusini%2Fimage%2Fupload%2Fc_crop%2Cg_south_west%2Ch_1075%2Cw_1300%2Cx_475%2Fv1657526004%2Fcms%2Fmam%2F7021_93798_VFA_M_0001.jpg",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Buffet",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/w_450,f_auto,dpr_2,q_80/v1635151019/cms/mam/VE6825M011.jpg",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Geschirr",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/w_331,f_auto,dpr_2,q_80/v1630044683/cms/category/VE6595M003-600.jpg",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Exotisch",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/w_450,f_auto,dpr_2,q_80/v1658223179/cms/static-block/lusini-banner-hero-cocktails-geschirr-mit-preis-desktop.jpg",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      },
+      {
+        "label": "Hotelbedarf",
+        "imgUrl": "https://res.cloudinary.com/lusini/image/upload/w_450,f_auto,dpr_2,q_80/v1658311387/cms/category/HW9312M002-600.jpg",
+        "to": {
+          "id": "categoryListing-sale",
+          "content_type": "categoryListing"
+        }
+      }
+    ]
   }
 ]

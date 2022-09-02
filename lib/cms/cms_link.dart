@@ -1,4 +1,4 @@
-enum CMSPageType { home }
+enum CMSPageType { home, categoryListing }
 
 class CMSLink {
   final String id;
