@@ -12,6 +12,37 @@ class HomeRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return HomeRouteWrapper(slivers: [
+      const HomeAppBar(),
+      CategoryGrid(title: cms.categoryLabel, rows: cms.categories),
+      ImageGrid(
+        columns: 2,
+        ratio: 1,
+        title: cms.brandLabel,
+        items: cms.brands,
+      ),
+      ImageGrid(
+        columns: 2,
+        ratio: 2,
+        title: cms.imgGrid1Label,
+        items: cms.imgGrid1,
+      ),
+      ImageGrid(
+        columns: 1,
+        ratio: 2,
+        title: cms.imgGrid2Label,
+        items: cms.imgGrid2,
+      ),
+    ]);
+  }
+}
+
+class HomeRouteWrapper extends StatelessWidget {
+  final List<Widget> slivers;
+  const HomeRouteWrapper({super.key, required this.slivers});
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Provider(
@@ -26,28 +57,7 @@ class HomeRoute extends StatelessWidget {
               return true;
             },
             child: CustomScrollView(
-              slivers: [
-                const HomeAppBar(),
-                CategoryGrid(title: cms.categoryLabel, rows: cms.categories),
-                ImageGrid(
-                  columns: 2,
-                  ratio: 1,
-                  title: cms.brandLabel,
-                  items: cms.brands,
-                ),
-                ImageGrid(
-                  columns: 2,
-                  ratio: 2,
-                  title: cms.imgGrid1Label,
-                  items: cms.imgGrid1,
-                ),
-                ImageGrid(
-                  columns: 1,
-                  ratio: 2,
-                  title: cms.imgGrid2Label,
-                  items: cms.imgGrid2,
-                ),
-              ],
+              slivers: slivers,
             ),
           );
         }),
