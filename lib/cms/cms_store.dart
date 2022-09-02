@@ -6,6 +6,8 @@ import 'package:flutter_app/cms/category_listing_page.dart';
 import 'package:flutter_app/cms/cms_link.dart';
 import 'package:flutter_app/cms/home_page.dart';
 import 'package:flutter_app/routes/home/index.dart';
+import 'package:flutter_app/routes/listing/index.dart';
+import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:mobx/mobx.dart';
 
 part 'cms_store.g.dart';
@@ -48,7 +50,11 @@ abstract class _CMSStore with Store {
           MaterialPageRoute(builder: (context) => HomeRoute(cms: cms)));
     }
     if (link.type == CMSPageType.categoryListing) {
-      throw 'categoryListing link not implemented';
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  const ListingRoute(initialFilters: InitialFilters())));
     }
   }
 }

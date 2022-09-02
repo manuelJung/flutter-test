@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/cms/cms_store.dart';
 import 'package:flutter_app/cms/home_page.dart';
 import 'package:flutter_app/routes/home/home_title.dart';
+import 'package:provider/provider.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class CategoryGrid extends StatelessWidget {
@@ -28,7 +30,8 @@ class CategoryGrid extends StatelessWidget {
             children: [
               for (var row in rows)
                 InkWell(
-                  onTap: (() {}),
+                  onTap: (() =>
+                      context.read<CMSStore>().navigate(context, row.to)),
                   child: Container(
                       color: Colors.grey[300],
                       child: Row(
