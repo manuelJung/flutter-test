@@ -7,4 +7,12 @@ class CategoryListingPage {
     required this.category,
     required this.title,
   });
+
+  factory CategoryListingPage.fromJSON(dynamic map) {
+    return CategoryListingPage(
+      id: map['id'],
+      category: map['category'],
+      title: map['title'],
+    );
+  }
 }

@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "id": "categoryListing-gläßer",
+    "category": "Gläßer",
+    "title": "Gläßer"
+  },
+  {
+    "id": "categoryListing-besteck",
+    "category": "Besteck",
+    "title": "Besteck"
+  },
+  {
+    "id": "categoryListing-moebel",
+    "category": "Möbel",
+    "title": "Möbel"
+  },
+  {
+    "id": "categoryListing-kleidung",
+    "category": "Kleidung",
+    "title": "Kleidung"
+  },
+  {
+    "id": "categoryListing-buffet",
+    "category": "Buffet",
+    "title": "Buffet"
+  },
+  {
+    "id": "categoryListing-take-away",
+    "category": "Take-Away",
+    "title": "Take-Away"
+  },
+  {
+    "id": "categoryListing-sale",
+    "category": "",
+    "title": "Sale"
+  }
+]
