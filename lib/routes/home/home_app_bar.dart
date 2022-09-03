@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/routes/search/index.dart';
 import 'package:flutter_app/stores/animated_value/animated_value.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -27,32 +28,45 @@ class HomeAppBar extends StatelessWidget {
         flexibleSpace: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 10,
-                  top: 10,
-                  bottom: 10,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Colors.grey[300],
-                  ),
-                  height: 45,
-                  child: Row(children: [
-                    Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.grey[700],
-                        )),
-                    Text(
-                      'Suche...',
-                      style: TextStyle(color: Colors.grey[700]),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SearchRoute()));
+              },
+              child: Hero(
+                tag: 'home-search',
+                child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      top: 10,
+                      bottom: 10,
                     ),
-                  ]),
-                )),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                        color: Colors.grey[300],
+                      ),
+                      height: 45,
+                      child: Row(children: [
+                        Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            child: Icon(
+                              Icons.search,
+                              color: Colors.grey[700],
+                            )),
+                        Text(
+                          'Suche...',
+                          style:
+                              TextStyle(color: Colors.grey[700], fontSize: 14),
+                        ),
+                      ]),
+                    )),
+              ),
+            ),
           ],
         ),
         backgroundColor: Colors.white,
