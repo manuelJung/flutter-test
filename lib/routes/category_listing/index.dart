@@ -4,54 +4,12 @@ import 'package:flutter_app/routes/category_listing/custom_app_bar.dart';
 import 'package:flutter_app/routes/category_listing/product_grid.dart';
 import 'package:flutter_app/routes/listing/filter_list/index.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class CategoryListingRoute extends StatelessWidget {
   final CategoryListingPage cms;
   const CategoryListingRoute({super.key, required this.cms});
-
-  @override
-  Widget build(BuildContext context) {
-    return CategoryListingRouteWrapper(
-      cms: cms,
-      slivers: [
-        CustomAppBar(title: cms.title),
-        const ProductGrid(startIndex: 0, numHits: 4),
-        SliverToBoxAdapter(
-          child: Container(
-            margin: const EdgeInsets.only(top: 50, bottom: 50),
-            color: Colors.amber[200],
-            height: 200,
-            child: const Center(
-              child: Text('Intersticial 1'),
-            ),
-          ),
-        ),
-        const ProductGrid(startIndex: 4, numHits: 6),
-        SliverToBoxAdapter(
-          child: Container(
-            margin: const EdgeInsets.only(top: 50, bottom: 50),
-            color: Colors.amber[100],
-            height: 200,
-            child: const Center(
-              child: Text('Intersticial 2'),
-            ),
-          ),
-        ),
-        const ProductGrid(startIndex: 10),
-      ],
-    );
-  }
-}
-
-class CategoryListingRouteWrapper extends StatelessWidget {
-  final List<Widget> slivers;
-  final CategoryListingPage cms;
-  const CategoryListingRouteWrapper({
-    super.key,
-    required this.slivers,
-    required this.cms,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,22 +28,85 @@ class CategoryListingRouteWrapper extends StatelessWidget {
             key: 'attributes.SHAPE.values.value',
             type: FilterType.disjunctive),
       ]),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => FilterListRoute(
-                          store: Provider.of<ProductListStore>(context),
-                        )));
-          },
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          child: const Icon(Icons.filter_alt_sharp),
-        ),
-        body: CustomScrollView(slivers: slivers),
+      child: Observer(builder: (context) {
+        var store = context.read<ProductListStore>();
+        return CategoryListingRouteWrapper(
+          cms: cms,
+          slivers: [
+            CustomAppBar(title: cms.title),
+            const ProductGrid(startIndex: 0, numHits: 6),
+            if (store.hits.length >= 6)
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 50, bottom: 50),
+                  color: Colors.amber[200],
+                  height: 200,
+                  child: const Center(
+                    child: Text('Intersticial 1'),
+                  ),
+                ),
+              ),
+            const ProductGrid(startIndex: 6, numHits: 10),
+            if (store.hits.length >= 16)
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 50, bottom: 50),
+                  color: Colors.amber[100],
+                  height: 200,
+                  child: const Center(
+                    child: Text('Intersticial 2'),
+                  ),
+                ),
+              ),
+            const ProductGrid(startIndex: 16),
+          ],
+        );
+      }),
+    );
+  }
+}
+
+class CategoryListingRouteWrapper extends StatelessWidget {
+  final List<Widget> slivers;
+  final CategoryListingPage cms;
+  const CategoryListingRouteWrapper({
+    super.key,
+    required this.slivers,
+    required this.cms,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => FilterListRoute(
+                        store: Provider.of<ProductListStore>(context),
+                      )));
+        },
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: const Icon(Icons.filter_alt_sharp),
       ),
+      body: Observer(builder: (context) {
+        var store = Provider.of<ProductListStore>(context);
+        if (store.hits.isEmpty) {
+          return const Text('');
+        }
+        return NotificationListener<ScrollNotification>(
+            onNotification: (notification) {
+              if (notification.metrics.extentAfter < 300 &&
+                  !store.isFetching &&
+                  store.canFetchNextPage) {
+                store.incrementPage();
+              }
+              return true;
+            },
+            child: CustomScrollView(slivers: slivers));
+      }),
     );
   }
 }
