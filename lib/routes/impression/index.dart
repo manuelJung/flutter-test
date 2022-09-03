@@ -47,61 +47,64 @@ class ImpressionPage extends StatelessWidget {
 
               return true;
             },
-            child: CustomScrollView(slivers: [
-              SliverAppBar(
-                title: Observer(builder: (context) {
-                  return Text(
-                    'Title',
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(scrollPos.interpolate(
-                        xs: [0, 0.7, 1],
-                        ys: [0, 0, 1],
-                      )),
-                    ),
-                  );
-                }),
-                expandedHeight: size.width,
-                flexibleSpace: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                        child: Image.network(
-                      store.items[index].img,
-                      fit: BoxFit.cover,
-                    )),
-                    Positioned.fill(child: Observer(builder: (context) {
-                      return Container(
-                        color: Colors.amber.withOpacity(scrollPos.interpolate(
+            child: Observer(builder: (context) {
+              var listingStore = context.read<ProductListStore>();
+              return CustomScrollView(slivers: [
+                SliverAppBar(
+                  title: Observer(builder: (context) {
+                    return Text(
+                      'Title',
+                      style: TextStyle(
+                        color: Colors.black.withOpacity(scrollPos.interpolate(
                           xs: [0, 0.7, 1],
                           ys: [0, 0, 1],
                         )),
-                      );
-                    }))
-                  ],
-                ),
-                pinned: true,
-              ),
-              const SliverToBoxAdapter(
-                child: Padding(
-                    padding: EdgeInsets.only(left: 10, top: 30, bottom: 10),
-                    child: Text(
-                      'Dargestellte Artikel:',
-                      style: TextStyle(fontSize: 22),
-                    )),
-              ),
-              Observer(builder: (context) {
-                final store = context.read<ProductListStore>();
-                return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                  ((context, index) {
-                    return _createProductWidgetRow(context, index);
+                      ),
+                    );
                   }),
-                  childCount: (store.hits.length / 2).floor(),
-                ));
-              }),
-              const SliverToBoxAdapter(child: SizedBox(height: 40)),
-              const SliverToBoxAdapter(child: ListingTeaser()),
-              const SliverToBoxAdapter(child: SizedBox(height: 150)),
-            ]),
+                  expandedHeight: size.width,
+                  flexibleSpace: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                          child: Image.network(
+                        store.items[index].img,
+                        fit: BoxFit.cover,
+                      )),
+                      Positioned.fill(child: Observer(builder: (context) {
+                        return Container(
+                          color: Colors.amber.withOpacity(scrollPos.interpolate(
+                            xs: [0, 0.7, 1],
+                            ys: [0, 0, 1],
+                          )),
+                        );
+                      }))
+                    ],
+                  ),
+                  pinned: true,
+                ),
+                if (!(listingStore.hits.isEmpty &&
+                    listingStore.isFetching)) ...[
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                        padding: EdgeInsets.only(left: 10, top: 30, bottom: 10),
+                        child: Text(
+                          'Dargestellte Artikel:',
+                          style: TextStyle(fontSize: 22),
+                        )),
+                  ),
+                  SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                    ((context, index) {
+                      return _createProductWidgetRow(context, index);
+                    }),
+                    childCount: (listingStore.hits.length / 2).floor(),
+                  )),
+                  const SliverToBoxAdapter(child: SizedBox(height: 40)),
+                  const SliverToBoxAdapter(child: ListingTeaser()),
+                  const SliverToBoxAdapter(child: SizedBox(height: 150)),
+                ]
+              ]);
+            }),
           );
         }),
       ),
