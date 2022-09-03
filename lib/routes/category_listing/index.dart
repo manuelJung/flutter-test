@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/cms/category_listing_page.dart';
 import 'package:flutter_app/routes/category_listing/custom_app_bar.dart';
-import 'package:flutter_app/routes/category_listing/product_grid.dart';
 import 'package:flutter_app/routes/listing/filter_list/index.dart';
+import 'package:flutter_app/slivers/sliver_product_grid.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +34,7 @@ class CategoryListingRoute extends StatelessWidget {
           cms: cms,
           slivers: [
             CustomAppBar(title: cms.title),
-            const ProductGrid(startIndex: 0, numHits: 6),
+            const SliverProductGrid(startIndex: 0, numHits: 6),
             if (store.hits.length >= 6)
               SliverToBoxAdapter(
                 child: Container(
@@ -46,7 +46,7 @@ class CategoryListingRoute extends StatelessWidget {
                   ),
                 ),
               ),
-            const ProductGrid(startIndex: 6, numHits: 10),
+            const SliverProductGrid(startIndex: 6, numHits: 10),
             if (store.hits.length >= 16)
               SliverToBoxAdapter(
                 child: Container(
@@ -58,7 +58,7 @@ class CategoryListingRoute extends StatelessWidget {
                   ),
                 ),
               ),
-            const ProductGrid(startIndex: 16),
+            const SliverProductGrid(startIndex: 16),
           ],
         );
       }),

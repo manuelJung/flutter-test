@@ -4,7 +4,7 @@ import 'package:flutter_app/routes/pdp/content_box.dart';
 import 'package:flutter_app/routes/pdp/gallery.dart';
 import 'package:flutter_app/routes/pdp/highlight_box.dart';
 import 'package:flutter_app/routes/pdp/sliver_title.dart';
-import 'package:flutter_app/sliver/product_list.dart';
+import 'package:flutter_app/slivers/sliver_listing_teaser.dart';
 import 'package:flutter_app/stores/pdp/pdp.dart';
 import 'package:flutter_app/stores/product_list/listing_hit.dart';
 import 'package:flutter_app/stores/product_list/product_list.dart';
@@ -121,7 +121,7 @@ class _PDPPageState extends State<PDPPage> {
             HighlightBox(),
             ContentBox(),
             SliverToBoxAdapter(child: SizedBox(height: 50)),
-            SliverToBoxAdapter(child: ListingTeaser()),
+            SliverListingTeaser(),
           ],
         )
       ]),

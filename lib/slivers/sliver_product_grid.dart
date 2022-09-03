@@ -4,10 +4,10 @@ import 'package:flutter_app/widgets/product_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-class ProductGrid extends StatelessWidget {
+class SliverProductGrid extends StatelessWidget {
   final int startIndex;
   final int numHits;
-  const ProductGrid({
+  const SliverProductGrid({
     super.key,
     required this.startIndex,
     this.numHits = -1,
