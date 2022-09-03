@@ -20,7 +20,7 @@ class CustomBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scrollPos = context.read<BottomSheetAnimation>();
-    // final controller = context.read<DraggableScrollableController>();
+    final controller = context.read<DraggableScrollableController>();
 
     return NotificationListener<DraggableScrollableNotification>(
       onNotification: (notification) {
@@ -34,6 +34,7 @@ class CustomBottomSheet extends StatelessWidget {
           maxChildSize: maxDragablePercent,
           minChildSize: draggablePercent,
           snap: true,
+          controller: controller,
           snapSizes: [draggablePercent, maxDragablePercent],
           builder: (BuildContext context, ScrollController scrollController) {
             return Observer(builder: (context) {
@@ -58,10 +59,13 @@ class CustomBottomSheet extends StatelessWidget {
                   child: MediaQuery.removePadding(
                     context: context,
                     removeTop: true,
-                    child: CustomScrollView(
-                      controller: scrollController,
-                      physics: const ClampingScrollPhysics(),
-                      slivers: children,
+                    child: ListenableProvider(
+                      create: (_) => scrollController,
+                      child: CustomScrollView(
+                        controller: scrollController,
+                        physics: const ClampingScrollPhysics(),
+                        slivers: children,
+                      ),
                     ),
                   ));
             });

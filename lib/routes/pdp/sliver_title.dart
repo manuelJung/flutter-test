@@ -60,7 +60,19 @@ class SliverTitle extends StatelessWidget {
                               xs: [0, 0.7, 1, 2],
                               ys: [0, 0, 1, 1],
                             ),
-                            child: const BackButton())),
+                            child: BackButton(
+                              onPressed: () {
+                                context.read<ScrollController>().jumpTo(0);
+                                context
+                                    .read<DraggableScrollableController>()
+                                    .animateTo(
+                                      0,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.easeOut,
+                                    );
+                              },
+                            ))),
                   ),
                   Expanded(
                       child: Column(

@@ -97,6 +97,7 @@ class _PDPPageState extends State<PDPPage> {
     return MultiProvider(
       providers: [
         Provider(create: (context) => widget.hit),
+        ListenableProvider(create: (_) => DraggableScrollableController()),
         Provider(
           create: (_) => PDPStore(
             containerID: widget.hit.productNumber,
