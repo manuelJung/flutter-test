@@ -20,6 +20,7 @@ class _GalleryState extends State<Gallery> {
     var size = MediaQuery.of(context).size;
     return Observer(builder: ((context) {
       if (store.isFetching) return _loadingBuild(context);
+      if (store.hits.isEmpty) return _loadingBuild(context);
       return Stack(
         children: [
           PageView.builder(

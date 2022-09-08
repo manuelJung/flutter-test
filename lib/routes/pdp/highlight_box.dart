@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/routes/pdp/selection_sheet.dart';
 
 class HighlightBox extends StatelessWidget {
   const HighlightBox({super.key});
@@ -23,10 +24,7 @@ class HighlightBox extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: (() => Scaffold.of(context).showBottomSheet(
-                  (context) => Container(
-                    color: Colors.amber,
-                    height: 400,
-                  ),
+                  (context) => const SelectionSheet(),
                 )),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(15),

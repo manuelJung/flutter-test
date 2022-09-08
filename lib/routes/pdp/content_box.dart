@@ -8,61 +8,65 @@ class ContentBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var store = context.read<PDPStore>();
     return SliverToBoxAdapter(
-      child: Container(
-        margin: const EdgeInsets.only(top: 20),
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            _delimiter(context),
-            InkWell(
-              onTap: () => Scaffold.of(context).showBottomSheet(
-                (context) => Container(
-                  color: Colors.amber,
-                  height: 400,
-                ),
+      child: Observer(builder: (context) {
+        return Container(
+          margin: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Wähle deine Farbe',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 18),
               ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Farbe',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Icon(Icons.chevron_right_rounded),
-                  ]),
-            ),
-            _delimiter(context),
-            InkWell(
-              onTap: () => Scaffold.of(context).showBottomSheet(
-                (context) => Container(
-                  color: Colors.amber,
-                  height: 400,
-                ),
+              Row(
+                children: [
+                  for (FilterOption row
+                      in store.filters[FilterKey.color]?.options ?? [])
+                    InkWell(
+                      onTap: () {
+                        store.filters[FilterKey.color]?.setValue(row.title);
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: store.displayVariant
+                                          .filters[FilterKey.color] ==
+                                      row.title
+                                  ? Colors.black
+                                  : Colors.transparent,
+                              width: 1,
+                            ),
+                          ),
+                          margin: const EdgeInsets.only(
+                            right: 10,
+                            top: 10,
+                          ),
+                          width: 80,
+                          height: 120,
+                          child: Image.network(row.img ?? '')),
+                    )
+                ],
               ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Größe',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Icon(Icons.chevron_right_rounded),
-                  ]),
-            ),
-            _delimiter(context),
-            const SizedBox(height: 20),
-            Observer(builder: (context) {
-              final store = context.read<PDPStore>();
-              return Text(
-                store.isFetching ? '' : store.displayVariant.description,
-                maxLines: 6,
-                overflow: TextOverflow.ellipsis,
-              );
-            })
-          ],
-        ),
-      ),
+              const SizedBox(height: 20),
+              _delimiter(context),
+              Observer(builder: (context) {
+                final store = context.read<PDPStore>();
+                return Text(
+                  store.isFetching || store.hits.isEmpty
+                      ? ''
+                      : store.displayVariant.description,
+                  maxLines: 6,
+                  overflow: TextOverflow.ellipsis,
+                );
+              })
+            ],
+          ),
+        );
+      }),
     );
   }
 

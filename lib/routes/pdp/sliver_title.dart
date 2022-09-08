@@ -88,7 +88,7 @@ class SliverTitle extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                          store.isFetching
+                          store.isFetching || store.hits.isEmpty
                               ? hit.subtitle
                               : store.displayVariant.subtitle,
                           overflow: TextOverflow.ellipsis,

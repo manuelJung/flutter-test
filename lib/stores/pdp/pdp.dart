@@ -144,22 +144,21 @@ abstract class _Filter with Store {
     required String style,
     required String size,
   }) {
-    return [];
-    // List<PDPHit> selectableHits = hits
-    //     .where((hit) =>
-    //         hit.match(color: color, size: size, variant: variant, style: style))
-    //     .toList();
+    List<PDPHit> selectableHits = hits
+        .where((hit) =>
+            hit.match(color: color, size: size, variant: variant, style: style))
+        .toList();
 
-    // Set<String> allOptions = hits.map((hit) => hit.filters[key]!).toSet();
+    Set<String> allOptions = hits.map((hit) => hit.filters[key]!).toSet();
 
-    // return allOptions
-    //     .map((opt) => FilterOption(
-    //           title: opt,
-    //           selectable: selectableHits
-    //               .where((hit) => hit.filters[key] == opt)
-    //               .isNotEmpty,
-    //         ))
-    //     .toList();
+    return allOptions.map((opt) {
+      return FilterOption(
+        title: opt,
+        img: hits.firstWhere((hit) => hit.filters[key] == opt).imgList[0],
+        selectable:
+            selectableHits.where((hit) => hit.filters[key] == opt).isNotEmpty,
+      );
+    }).toList();
   }
 }
 

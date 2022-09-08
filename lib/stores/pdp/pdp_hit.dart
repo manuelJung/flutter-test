@@ -79,8 +79,12 @@ class PDPHit {
         title: hit['title'],
         description: hit['description'],
         subtitle: hit['subtitle'],
-        imgUrl: ImgTransform.generate(hit['images']['imageWeb'][0]),
-        imgList: imagesRaw.map((e) => ImgTransform.generate(e)).toList(),
+        imgUrl: imagesRaw.isNotEmpty
+            ? ImgTransform.generate(hit['images']['imageWeb'][0])
+            : '',
+        imgList: imagesRaw.isNotEmpty
+            ? imagesRaw.map((e) => ImgTransform.generate(e)).toList()
+            : [''],
         filters: {
           FilterKey.color: hit['variantData']['color']['label'] ?? '',
           FilterKey.variant: hit['variantData']['variant']['label'] ?? '',
