@@ -151,14 +151,18 @@ abstract class _Filter with Store {
 
     Set<String> allOptions = hits.map((hit) => hit.filters[key]!).toSet();
 
-    return allOptions.map((opt) {
-      return FilterOption(
-        title: opt,
-        img: hits.firstWhere((hit) => hit.filters[key] == opt).imgList[0],
-        selectable:
-            selectableHits.where((hit) => hit.filters[key] == opt).isNotEmpty,
-      );
-    }).toList();
+    return allOptions
+        .map((opt) {
+          return FilterOption(
+            title: opt,
+            img: hits.firstWhere((hit) => hit.filters[key] == opt).imgList[0],
+            selectable: selectableHits
+                .where((hit) => hit.filters[key] == opt)
+                .isNotEmpty,
+          );
+        })
+        .where((element) => element.title != '')
+        .toList();
   }
 }
 
