@@ -80,10 +80,10 @@ class ContentBox extends StatelessWidget {
                 child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: store.displayVariant.filters[FilterKey.color] ==
-                                row.title
-                            ? Colors.black
-                            : Colors.transparent,
+                        color:
+                            store.filters[FilterKey.color]!.value == row.title
+                                ? Colors.black
+                                : Colors.transparent,
                         width: 1,
                       ),
                     ),
