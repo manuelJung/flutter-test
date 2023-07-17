@@ -9,6 +9,6 @@ class CartRoute extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Cart'),
         ),
-        body: const Center(child: Text('Cart')));
+        body: const Center(child: Text('TODO')));
   }
 }

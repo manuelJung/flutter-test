@@ -23,17 +23,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: Provider(
-          create: (_) => CMSStore(),
-          child: Observer(builder: (context) {
-            var store = context.read<CMSStore>();
+      home: SafeArea(
+        top: false,
+        // bottom: false,
+        // maintainBottomViewPadding: false,
+        child: Provider(
+            create: (_) => CMSStore(),
+            child: Observer(builder: (context) {
+              var store = context.read<CMSStore>();
 
-            if (store.dataHome.containsKey('home')) {
-              return const App();
-            }
+              if (store.dataHome.containsKey('home')) {
+                return const App();
+              }
 
-            return const Center(child: Text('loading...'));
-          })),
+              return const Center(child: Text('loading...'));
+            })),
+      ),
     );
   }
 }

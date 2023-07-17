@@ -21,7 +21,7 @@ const Map<TabItem, String> routePaths = {
 const Map<TabItem, IconData> routeIcons = {
   TabItem.home: Icons.shop,
   TabItem.discover: Icons.fireplace_rounded,
-  TabItem.wishlist: Icons.heart_broken,
+  TabItem.wishlist: Icons.favorite,
   TabItem.cart: Icons.shopping_cart,
-  TabItem.settings: Icons.accessible_rounded,
+  TabItem.settings: Icons.account_circle_rounded,
 };

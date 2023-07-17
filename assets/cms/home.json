@@ -4,7 +4,7 @@
     "categoryLabel": "Kategorien",
     "categories": [
       {
-        "label": "Gläßer",
+        "label": "Gläser",
         "imgUrl": "assets/home_glaeser.png",
         "to": {
           "id": "categoryListing-gläßer",
